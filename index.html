@@ -14,12 +14,13 @@
       --accent: #00e0ff;
       --premium: #ffc200;
       --success: #00ff88;
+      --danger: #ff4444;
       --glass: rgba(255, 255, 255, 0.03);
       --glass-border: rgba(255, 255, 255, 0.08);
       --neon-glow: 0 0 15px rgba(0, 224, 255, 0.4);
     }
 
-    * { box-sizing: border-box; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    * { box-sizing: border-box; transition: all 0.3s ease; }
 
     body {
       margin: 0; background: var(--bg); color: #fff;
@@ -34,78 +35,92 @@
 
     header { text-align: center; margin-bottom: 50px; }
     header h1 { 
-      font-family: 'Orbitron', sans-serif; font-size: clamp(2.5rem, 8vw, 4rem); margin: 0;
+      font-family: 'Orbitron', sans-serif; font-size: clamp(2rem, 8vw, 3.5rem); margin: 0;
       background: linear-gradient(90deg, #fff, var(--accent), var(--premium));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 15px rgba(0,224,255,0.4));
+      filter: drop-shadow(0 0 10px rgba(0,224,255,0.3));
     }
 
     .rate-badge {
       display: inline-block; padding: 10px 25px; background: var(--glass);
       border: 1px solid var(--accent); border-radius: 50px;
       font-size: 13px; text-transform: uppercase; letter-spacing: 2px;
-      margin-top: 25px; color: var(--accent); box-shadow: var(--neon-glow);
+      margin-top: 25px; color: var(--accent);
     }
 
-    /* Проверка ника */
+    /* Nick Box */
     .nick-verify {
       background: var(--glass); border: 1px solid var(--glass-border);
-      padding: 20px; border-radius: 20px; margin-bottom: 30px; text-align: center;
+      padding: 25px; border-radius: 24px; margin-bottom: 30px; text-align: center;
+      backdrop-filter: blur(10px); position: relative;
     }
     .input-group { position: relative; max-width: 320px; margin: 15px auto; }
     .input-group input {
       width: 100%; padding: 15px; border-radius: 12px; border: 1px solid var(--glass-border);
       background: #000; color: #fff; text-align: center; font-size: 16px; outline: none;
     }
+    .input-group input:focus { border-color: var(--accent); box-shadow: var(--neon-glow); }
     #v-mark { position: absolute; right: 15px; top: 15px; font-size: 20px; }
 
+    /* ПРЕДУПРЕЖДЕНИЕ О НИКЕ */
+    .warning-text {
+      color: var(--danger); font-size: 12px; font-weight: bold;
+      text-transform: uppercase; letter-spacing: 1px; margin-top: 10px;
+      animation: pulseRed 1.5s infinite;
+    }
+
+    @keyframes pulseRed {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(0.98); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
     /* Tabs */
-    .tabs-nav { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; }
+    .tabs-nav { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
     .tab-btn {
       background: var(--glass); border: 1px solid var(--glass-border);
-      color: #fff; padding: 12px 20px; border-radius: 12px; cursor: pointer; font-size: 14px;
+      color: #fff; padding: 12px 18px; border-radius: 12px; cursor: pointer; font-size: 14px;
     }
-    .tab-btn.active { background: var(--accent); color: var(--bg); box-shadow: var(--neon-glow); }
+    .tab-btn.active { background: var(--accent); color: var(--bg); font-weight: bold; }
 
-    .tab-content { display: none; animation: fadeIn 0.5s ease; }
-    .tab-content.active { display: block; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.4s ease; }
 
-    /* Products */
-    .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px; }
+    /* Cards */
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
     .card {
-      background: var(--glass); border: 1px solid var(--glass-border); border-radius: 24px;
-      padding: 25px; text-align: center; backdrop-filter: blur(10px);
+      background: var(--glass); border: 1px solid var(--glass-border); border-radius: 20px;
+      padding: 20px; text-align: center;
     }
-    .card:hover { transform: translateY(-10px); border-color: var(--accent); }
-    .robux-icon { width: 40px; height: 40px; margin-bottom: 15px; fill: var(--premium); }
-    .price-tag { color: var(--accent); font-weight: bold; font-size: 18px; margin-bottom: 15px; }
+    .card:hover { transform: translateY(-5px); border-color: var(--accent); }
+    .robux-icon { width: 35px; height: 35px; margin-bottom: 10px; fill: var(--premium); }
+    .price-tag { color: var(--accent); font-weight: bold; margin-bottom: 15px; font-size: 18px; }
 
     .add-btn {
-      width: 100%; padding: 12px; border: none; border-radius: 10px;
+      width: 100%; padding: 10px; border: none; border-radius: 8px;
       background: rgba(255,255,255,0.05); color: #fff; font-weight: 700; cursor: pointer;
     }
     .card:hover .add-btn { background: var(--accent); color: var(--bg); }
 
     /* Cart */
     .cart-container { 
-        background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(0,0,0,0.5));
-        border: 1px solid var(--premium); border-radius: 30px; padding: 30px; margin-top: 40px;
+        background: rgba(0,0,0,0.4); border: 1px solid var(--premium);
+        border-radius: 25px; padding: 25px; margin-top: 30px;
     }
-    .cart-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--glass-border); }
+    .cart-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--glass-border); }
     .checkout-btn {
       display: flex; align-items: center; justify-content: center; gap: 10px;
-      width: 100%; padding: 20px; background: #0088cc; color: #fff;
+      width: 100%; padding: 18px; background: #0088cc; color: #fff;
       text-decoration: none; border-radius: 15px; font-weight: bold; font-size: 18px; margin-top: 20px;
     }
 
-    /* Admin Panel */
-    #admin-panel { display: none; background: rgba(0,255,136,0.1); border: 2px dashed var(--success); padding: 25px; border-radius: 25px; margin-top: 30px; }
-    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; z-index: 9999; }
+    #admin-panel { display: none; background: rgba(0,255,136,0.1); border: 1px solid var(--success); padding: 20px; border-radius: 20px; margin-top: 20px; }
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; z-index: 999; }
+    
+    footer { margin-top: 50px; text-align: center; padding: 30px; opacity: 0.5; font-size: 11px; border-top: 1px solid var(--glass-border); }
+    .hammer { cursor: pointer; margin-top: 15px; display: inline-block; font-size: 18px; }
 
-    footer { margin-top: 60px; text-align: center; padding: 40px; opacity: 0.5; font-size: 12px; border-top: 1px solid var(--glass-border); }
-    .hammer { cursor: pointer; opacity: 0.2; font-size: 20px; margin-top: 20px; display: inline-block; }
-
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   </style>
 </head>
 <body oncontextmenu="return false;">
@@ -114,17 +129,18 @@
   <header>
     <h1>WIKSXZ STORE</h1>
     <p>Моментальные Робуксы в Кыргызстане</p>
-    <div class="rate-badge" id="rate-display"><i class="fas fa-sync fa-spin"></i> СВЯЗЬ...</div>
+    <div class="rate-badge" id="rate-display">ЗАГРУЗКА КУРСА...</div>
   </header>
 
   <div class="nick-verify">
-    <div style="font-size: 11px; opacity: 0.6; letter-spacing: 2px;">АВТОРИЗАЦИЯ ROBLOX</div>
+    <div style="font-size: 11px; opacity: 0.6; letter-spacing: 1px;">ПРОВЕРКА АККАУНТА</div>
     <div class="input-group">
-      <input type="text" id="user-nick" placeholder="Введи ник игрока" oninput="verifyPlayer()">
+      <input type="text" id="user-nick" placeholder="Введи ник (напр. Dimal20138)" oninput="handleNickInput()">
       <div id="v-mark"></div>
     </div>
-    <div id="user-stats" style="display:none; color: var(--success); font-size: 14px;">
-      <i class="fas fa-crown"></i> Общие покупки: <span id="total-rbx">0</span> R$
+    <div class="warning-text">⚠️ Пишите ник правильно, иначе я не несу ответственность за ваши робуксы!</div>
+    <div id="user-stats" style="display:none; color: var(--success); font-size: 13px; font-weight: bold; margin-top:10px;">
+      <i class="fas fa-crown"></i> Куплено ранее: <span id="total-rbx">0</span> R$
     </div>
   </div>
 
@@ -166,110 +182,81 @@
     <div id="cart-ui" style="display:none;">
       <div class="cart-container">
         <div id="cart-items"></div>
-        <div style="text-align: right; margin-top: 20px;">
-          <h2 id="total-som" style="color:var(--premium); font-family: 'Orbitron'; font-size: 32px;">0 сом</h2>
-          <a href="#" id="pay-link" class="checkout-btn"><i class="fab fa-telegram-plane"></i> ПЕРЕЙТИ К ОПЛАТЕ</a>
+        <div style="text-align: right; margin-top: 15px;">
+          <h2 id="total-som" style="color:var(--premium); font-family: 'Orbitron'; font-size: 28px; margin:0;">0 сом</h2>
+          <a href="#" id="pay-link" class="checkout-btn"><i class="fab fa-telegram-plane"></i> К ОПЛАТЕ В TELEGRAM</a>
         </div>
       </div>
     </div>
   </div>
 
   <div id="reviews" class="tab-content">
-    <div class="card"><p>Моментально! Беру не в первый раз ⚡️</p></div>
+    <div class="card"><p>Всё супер, робуксы пришли быстро! 🇰🇬</p></div>
   </div>
 
   <div id="about" class="tab-content">
-    <div class="card" style="text-align: left; line-height: 1.8;">
-      <p><b>Wiksxz Store</b> — ваш надежный партнер в Кыргызстане! 🇰🇬</p>
-      <p style="color:#ff4444; font-weight:bold; border-top: 1px solid var(--glass-border); padding-top: 15px;">
-        ВНИМАНИЕ: После зачисления робуксов ответственность за аккаунт переходит к вам. Возврат средств не предусмотрен.
+    <div class="card" style="text-align: left; line-height: 1.6;">
+      <h3>О нашем магазине</h3>
+      <p>Wiksxz Store — моментальные робуксы в Кыргызстане.</p>
+      <p style="color:#ff4444; font-weight:bold; border-top:1px solid rgba(255,255,255,0.1); padding-top:10px;">
+        ⚠️ ВАЖНО: Если вы указали ник с ошибкой — робуксы уйдут другому пользователю. В этом случае я не несу ответственность и возврат средств не производится. Будьте внимательны!
       </p>
     </div>
   </div>
 
   <div id="admin-panel">
-    <h3 style="color:var(--success)">Wiksxz Admin System</h3>
-    <a href="https://docs.google.com/spreadsheets/d/1duBvq0ywgpBwM4sk2Er7bIpTYWkpQSj4fQ4FI_yrAP8/edit" target="_blank" style="color:var(--accent)">Открыть базу заказов</a>
+    <h3>Admin Access Granted</h3>
+    <a href="https://docs.google.com/spreadsheets/d/1duBvq0ywgpBwM4sk2Er7bIpTYWkpQSj4fQ4FI_yrAP8/edit" target="_blank" style="color:var(--accent)">Открыть таблицу заказов</a>
   </div>
 
   <footer>
-    © 2026 <b>Wiksxz Store</b><br>
+    © 2026 Wiksxz Store<br>
     <i class="fas fa-hammer hammer" onclick="tapHammer()"></i>
   </footer>
 </div>
 
 <div class="modal" id="login-modal">
-  <div class="card" style="width: 300px;">
-    <h3 style="color: var(--accent);">ADMIN LOGIN</h3>
-    <input type="text" id="adm-name" placeholder="Логин">
-    <input type="password" id="adm-pass" placeholder="Пароль">
-    <button class="add-btn" onclick="doLogin()" style="background:var(--accent); color:#000; margin-top:10px;">ВОЙТИ</button>
+  <div class="card" style="width: 280px;">
+    <h3>ВХОД</h3>
+    <input type="text" id="adm-l" placeholder="Логин" style="width:100%; padding:10px; margin-bottom:10px; background:#000; color:#fff; border:1px solid var(--glass-border);">
+    <input type="password" id="adm-p" placeholder="Пароль" style="width:100%; padding:10px; margin-bottom:15px; background:#000; color:#fff; border:1px solid var(--glass-border);">
+    <button class="add-btn" onclick="doLogin()" style="background:var(--accent); color:#000;">OK</button>
   </div>
 </div>
 
 <script>
   let cart = [];
-  let rate = 92.5;
+  let rate = 92.0;
   let isVerified = false;
   let taps = 0;
   const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1duBvq0ywgpBwM4sk2Er7bIpTYWkpQSj4fQ4FI_yrAP8/gviz/tq?tqx=out:csv';
 
-  async function fetchRate() {
+  async function getRate() {
     try {
-      const res = await fetch('https://open.er-api.com/v6/latest/USD');
-      const data = await res.json();
-      rate = data.rates.KGS + 5;
-      document.getElementById('rate-display').innerHTML = `<i class="fas fa-check-circle"></i> КУРС: ${rate.toFixed(2)} сом`;
-    } catch(e) { document.getElementById('rate-display').innerText = "КУРС: 93.00 сом"; }
+      const r = await fetch('https://open.er-api.com/v6/latest/USD');
+      const d = await r.json();
+      rate = d.rates.KGS + 5;
+      document.getElementById('rate-display').innerText = `КУРС: ${rate.toFixed(2)} СОМ`;
+    } catch(e) { document.getElementById('rate-display').innerText = "КУРС: 93.00 СОМ"; }
   }
 
-  // УЛУЧШЕННАЯ ПРОВЕРКА (ИЩЕТ ПО ВСЕМ ПАРАМЕТРАМ)
-  async function verifyPlayer() {
+  async function handleNickInput() {
     const nick = document.getElementById('user-nick').value.trim();
     const mark = document.getElementById('v-mark');
     const stats = document.getElementById('user-stats');
-    if(nick.length < 3) { mark.innerHTML = ""; stats.style.display="none"; return; }
     
-    try {
-      // 1. Прямой поиск по точной базе
-      const res = await fetch(`https://corsproxy.io/?https://users.roblox.com/v1/usernames/users`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ usernames: [nick], excludeBannedUsers: true })
-      });
-      const data = await res.json();
+    if(nick.length < 3) { mark.innerHTML = ""; stats.style.display="none"; isVerified = false; return; }
+    
+    mark.innerHTML = "✅"; mark.style.color = "#00ff88";
+    isVerified = true;
 
-      if(data.data && data.data.length > 0) {
-        success(nick);
-      } else {
-        // 2. Если не нашло, пробуем общий поиск
-        const resSearch = await fetch(`https://corsproxy.io/?https://users.roblox.com/v1/users/search?keyword=${nick}&limit=1`);
-        const dataSearch = await resSearch.json();
-        if(dataSearch.data && dataSearch.data[0]) success(nick);
-        else fail();
-      }
-    } catch(e) { fail(); }
-
-    function success(n) {
-      mark.innerHTML = "✅"; mark.style.color = "var(--success)";
-      isVerified = true; loadFromSheet(n);
-    }
-    function fail() {
-      mark.innerHTML = "❌"; mark.style.color = "red";
-      isVerified = false; stats.style.display="none";
-    }
-  }
-
-  async function loadFromSheet(nick) {
     try {
       const res = await fetch(SHEET_URL);
       const csv = await res.text();
       const rows = csv.split('\n').map(r => r.split(',').map(c => c.replace(/"/g,'')));
       let total = 0;
       rows.forEach(row => {
-        if(row[0] && row[0].toLowerCase() === nick.toLowerCase() && row[2].toLowerCase().includes("выполнено")) {
-          total += parseInt(row[1]) || 0;
-        }
+        if(row[0] && row[0].toLowerCase() === nick.toLowerCase()) total += parseInt(row[1]) || 0;
       });
       if(total > 0) {
         document.getElementById('user-stats').style.display = "block";
@@ -279,51 +266,51 @@
   }
 
   function addToCart(rbx, usd) {
-    if(!isVerified) { alert("Сначала введи верный ник!"); return; }
+    if(!isVerified) { alert("Введите ник игрока!"); return; }
     cart.push({rbx, usd});
-    updateUI();
+    renderCart();
   }
 
-  function updateUI() {
+  function renderCart() {
     const ui = document.getElementById('cart-ui');
-    const items = document.getElementById('cart-items');
+    const box = document.getElementById('cart-items');
     if(cart.length === 0) { ui.style.display = "none"; return; }
     ui.style.display = "block";
-    items.innerHTML = "";
-    let tUsd = 0; let tRbx = 0;
+    box.innerHTML = "";
+    let sumU = 0, sumR = 0;
     cart.forEach((item, i) => {
-      tUsd += item.usd; tRbx += item.rbx;
-      items.innerHTML += `<div class="cart-item">
+      sumU += item.usd; sumR += item.rbx;
+      box.innerHTML += `<div class="cart-item">
         <span>${item.rbx} R$</span>
-        <span onclick="cart.splice(${i},1); updateUI()" style="color:red; cursor:pointer;">&times; убрать</span>
+        <span onclick="cart.splice(${i},1); renderCart()" style="color:red; cursor:pointer;">&times;</span>
       </div>`;
     });
-    const tSom = Math.ceil(tUsd * rate);
-    document.getElementById('total-som').innerText = tSom + " сом";
-    const msg = `💎 ЗАКАЗ\nНик: ${document.getElementById('user-nick').value}\nТовар: ${tRbx} R$\nСумма: ${tSom} сом`;
+    const finalSom = Math.ceil(sumU * rate);
+    document.getElementById('total-som').innerText = finalSom + " сом";
+    const msg = `💎 ЗАКАЗ\nНик: ${document.getElementById('user-nick').value}\nТовар: ${sumR} R$\nИтого: ${finalSom} сом\n\n⚠️ Я подтверждаю, что ник указан верно.`;
     document.getElementById('pay-link').href = `https://t.me/i_wiksxz0?text=${encodeURIComponent(msg)}`;
   }
 
-  function openTab(evt, name) {
+  function openTab(e, name) {
     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.getElementById(name).classList.add('active');
-    evt.currentTarget.classList.add('active');
+    e.currentTarget.classList.add('active');
   }
 
   function tapHammer() {
     taps++;
-    if(taps >= 30) { document.getElementById('login-modal').style.display="flex"; taps = 0; }
+    if(taps >= 30) { document.getElementById('login-modal').style.display="flex"; taps=0; }
   }
 
   function doLogin() {
-    if(document.getElementById('adm-name').value === "Wiksxz" && document.getElementById('adm-pass').value === "WiksxzShop") {
+    if(document.getElementById('adm-l').value === "Wiksxz" && document.getElementById('adm-p').value === "WiksxzShop") {
       document.getElementById('login-modal').style.display="none";
       document.getElementById('admin-panel').style.display="block";
     } else { alert("Неверно!"); }
   }
 
-  fetchRate();
+  getRate();
 </script>
 </body>
 </html>
