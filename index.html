@@ -167,8 +167,7 @@
       <div class="cart-container">
         <div id="cart-items"></div>
         <div style="text-align: right; margin-top: 20px;">
-          <div style="opacity: 0.5; font-size: 12px;">Итого к оплате:</div>
-          <h2 id="total-som" style="color:var(--premium); font-family: 'Orbitron'; font-size: 32px; margin: 5px 0;">0 сом</h2>
+          <h2 id="total-som" style="color:var(--premium); font-family: 'Orbitron'; font-size: 32px;">0 сом</h2>
           <a href="#" id="pay-link" class="checkout-btn"><i class="fab fa-telegram-plane"></i> ПЕРЕЙТИ К ОПЛАТЕ</a>
         </div>
       </div>
@@ -176,18 +175,12 @@
   </div>
 
   <div id="reviews" class="tab-content">
-    <div class="card" style="margin-bottom:15px;"><p>Моментально! Беру не в первый раз ⚡️</p></div>
-    <div class="card"><p>Самый лучший курс в Бишкеке 🇰🇬</p></div>
+    <div class="card"><p>Моментально! Беру не в первый раз ⚡️</p></div>
   </div>
 
   <div id="about" class="tab-content">
     <div class="card" style="text-align: left; line-height: 1.8;">
       <p><b>Wiksxz Store</b> — ваш надежный партнер в Кыргызстане! 🇰🇬</p>
-      <ul>
-        <li>⚡️ Зачисление до 5 минут.</li>
-        <li>🛡 Полная безопасность аккаунта.</li>
-        <li>🇰🇬 Оплата через MBANK / Элкарт.</li>
-      </ul>
       <p style="color:#ff4444; font-weight:bold; border-top: 1px solid var(--glass-border); padding-top: 15px;">
         ВНИМАНИЕ: После зачисления робуксов ответственность за аккаунт переходит к вам. Возврат средств не предусмотрен.
       </p>
@@ -196,23 +189,21 @@
 
   <div id="admin-panel">
     <h3 style="color:var(--success)">Wiksxz Admin System</h3>
-    <a href="https://docs.google.com/spreadsheets/d/1duBvq0ywgpBwM4sk2Er7bIpTYWkpQSj4fQ4FI_yrAP8/edit" target="_blank" style="color:var(--accent)">Открыть базу заказов (Google Таблица)</a>
+    <a href="https://docs.google.com/spreadsheets/d/1duBvq0ywgpBwM4sk2Er7bIpTYWkpQSj4fQ4FI_yrAP8/edit" target="_blank" style="color:var(--accent)">Открыть базу заказов</a>
   </div>
 
   <footer>
-    © 2024-2026 <b>Wiksxz Store</b> • Все права защищены.<br>
-    <div style="color:#ff4444; margin-top:10px;">Protected by Digital Defense Systems</div>
+    © 2026 <b>Wiksxz Store</b><br>
     <i class="fas fa-hammer hammer" onclick="tapHammer()"></i>
   </footer>
 </div>
 
 <div class="modal" id="login-modal">
   <div class="card" style="width: 300px;">
-    <h3 style="font-family: 'Orbitron'; color: var(--accent);">ADMIN LOGIN</h3>
-    <input type="text" id="adm-name" placeholder="Логин" style="width:100%; padding:10px; margin-bottom:10px; background:#000; color:#fff; border:1px solid var(--glass-border);">
-    <input type="password" id="adm-pass" placeholder="Пароль" style="width:100%; padding:10px; margin-bottom:20px; background:#000; color:#fff; border:1px solid var(--glass-border);">
-    <button class="add-btn" onclick="doLogin()" style="background:var(--accent); color:#000;">ВОЙТИ</button>
-    <button class="add-btn" onclick="document.getElementById('login-modal').style.display='none'" style="margin-top:10px; font-size:10px;">ОТМЕНА</button>
+    <h3 style="color: var(--accent);">ADMIN LOGIN</h3>
+    <input type="text" id="adm-name" placeholder="Логин">
+    <input type="password" id="adm-pass" placeholder="Пароль">
+    <button class="add-btn" onclick="doLogin()" style="background:var(--accent); color:#000; margin-top:10px;">ВОЙТИ</button>
   </div>
 </div>
 
@@ -232,22 +223,41 @@
     } catch(e) { document.getElementById('rate-display').innerText = "КУРС: 93.00 сом"; }
   }
 
+  // УЛУЧШЕННАЯ ПРОВЕРКА (ИЩЕТ ПО ВСЕМ ПАРАМЕТРАМ)
   async function verifyPlayer() {
     const nick = document.getElementById('user-nick').value.trim();
     const mark = document.getElementById('v-mark');
     const stats = document.getElementById('user-stats');
     if(nick.length < 3) { mark.innerHTML = ""; stats.style.display="none"; return; }
+    
     try {
-      const res = await fetch(`https://corsproxy.io/?https://users.roblox.com/v1/users/search?keyword=${nick}&limit=1`);
+      // 1. Прямой поиск по точной базе
+      const res = await fetch(`https://corsproxy.io/?https://users.roblox.com/v1/usernames/users`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ usernames: [nick], excludeBannedUsers: true })
+      });
       const data = await res.json();
-      if(data.data && data.data[0] && data.data[0].name.toLowerCase() === nick.toLowerCase()) {
-        mark.innerHTML = "✅"; mark.style.color = "var(--success)";
-        isVerified = true;
-        loadFromSheet(nick);
+
+      if(data.data && data.data.length > 0) {
+        success(nick);
       } else {
-        mark.innerHTML = "❌"; isVerified = false; stats.style.display="none";
+        // 2. Если не нашло, пробуем общий поиск
+        const resSearch = await fetch(`https://corsproxy.io/?https://users.roblox.com/v1/users/search?keyword=${nick}&limit=1`);
+        const dataSearch = await resSearch.json();
+        if(dataSearch.data && dataSearch.data[0]) success(nick);
+        else fail();
       }
-    } catch(e) {}
+    } catch(e) { fail(); }
+
+    function success(n) {
+      mark.innerHTML = "✅"; mark.style.color = "var(--success)";
+      isVerified = true; loadFromSheet(n);
+    }
+    function fail() {
+      mark.innerHTML = "❌"; mark.style.color = "red";
+      isVerified = false; stats.style.display="none";
+    }
   }
 
   async function loadFromSheet(nick) {
@@ -269,7 +279,7 @@
   }
 
   function addToCart(rbx, usd) {
-    if(!isVerified) { alert("Сначала введи верный ник Roblox!"); return; }
+    if(!isVerified) { alert("Сначала введи верный ник!"); return; }
     cart.push({rbx, usd});
     updateUI();
   }
@@ -284,13 +294,13 @@
     cart.forEach((item, i) => {
       tUsd += item.usd; tRbx += item.rbx;
       items.innerHTML += `<div class="cart-item">
-        <span><i class="fas fa-gem" style="color:var(--premium)"></i> ${item.rbx} R$</span>
-        <span onclick="cart.splice(${i},1); updateUI()" style="color:#ff4444; cursor:pointer;">&times; удалить</span>
+        <span>${item.rbx} R$</span>
+        <span onclick="cart.splice(${i},1); updateUI()" style="color:red; cursor:pointer;">&times; убрать</span>
       </div>`;
     });
     const tSom = Math.ceil(tUsd * rate);
     document.getElementById('total-som').innerText = tSom + " сом";
-    const msg = `💎 НОВЫЙ ЗАКАЗ\n👤 Ник: ${document.getElementById('user-nick').value}\n📦 Товары: ${tRbx} Robux\n💰 Сумма: ${tSom} сом`;
+    const msg = `💎 ЗАКАЗ\nНик: ${document.getElementById('user-nick').value}\nТовар: ${tRbx} R$\nСумма: ${tSom} сом`;
     document.getElementById('pay-link').href = `https://t.me/i_wiksxz0?text=${encodeURIComponent(msg)}`;
   }
 
@@ -307,22 +317,13 @@
   }
 
   function doLogin() {
-    const l = document.getElementById('adm-name').value;
-    const p = document.getElementById('adm-pass').value;
-    if(l === "Wiksxz" && p === "WiksxzShop") {
+    if(document.getElementById('adm-name').value === "Wiksxz" && document.getElementById('adm-pass').value === "WiksxzShop") {
       document.getElementById('login-modal').style.display="none";
       document.getElementById('admin-panel').style.display="block";
-      alert("Доступ разрешен, Босс.");
-    } else { alert("Ошибка доступа!"); }
+    } else { alert("Неверно!"); }
   }
-
-  // Защита от взлома
-  document.onkeydown = function(e) {
-    if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73) || (e.ctrlKey && e.keyCode == 85)) return false;
-  };
 
   fetchRate();
 </script>
-
 </body>
 </html>
