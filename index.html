@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Wiksxz Robux | Premium Store 🇰🇬</title>
+  <title>Wiksxz Store | Официальный магазин 🇰🇬</title>
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
@@ -17,300 +17,190 @@
       --danger: #ff4444;
       --glass: rgba(255, 255, 255, 0.03);
       --glass-border: rgba(255, 255, 255, 0.08);
-      --neon-glow: 0 0 15px rgba(0, 224, 255, 0.4);
     }
 
     * { box-sizing: border-box; transition: all 0.3s ease; }
-
     body {
-      margin: 0; background: var(--bg); color: #fff;
-      font-family: 'Inter', sans-serif; overflow-x: hidden;
-      background-image: 
-        radial-gradient(circle at 10% 20%, rgba(0, 224, 255, 0.07) 0%, transparent 40%),
-        radial-gradient(circle at 90% 80%, rgba(255, 194, 0, 0.07) 0%, transparent 40%);
+      margin: 0; background: var(--bg); color: #fff; font-family: 'Inter', sans-serif;
+      background-image: radial-gradient(circle at 50% 0%, rgba(0, 224, 255, 0.1) 0%, transparent 50%);
       -webkit-user-select: none; user-select: none;
     }
 
-    .container { width: 100%; max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+    .container { width: 100%; max-width: 800px; margin: 0 auto; padding: 20px; }
 
-    header { text-align: center; margin-bottom: 50px; }
-    header h1 { 
-      font-family: 'Orbitron', sans-serif; font-size: clamp(2rem, 8vw, 3.5rem); margin: 0;
-      background: linear-gradient(90deg, #fff, var(--accent), var(--premium));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 10px rgba(0,224,255,0.3));
-    }
+    header { text-align: center; margin-bottom: 40px; padding-top: 20px; }
+    header h1 { font-family: 'Orbitron', sans-serif; font-size: 2.5rem; margin: 0; color: #fff; text-shadow: 0 0 20px rgba(0,224,255,0.6); }
 
-    .rate-badge {
-      display: inline-block; padding: 10px 25px; background: var(--glass);
-      border: 1px solid var(--accent); border-radius: 50px;
-      font-size: 13px; text-transform: uppercase; letter-spacing: 2px;
-      margin-top: 25px; color: var(--accent);
+    /* ТАБЛИЦА ИГРОКОВ (ЛИДЕРБОРД) */
+    .leaderboard {
+      background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 100%);
+      border: 1px solid var(--glass-border); border-radius: 24px; padding: 25px; margin-bottom: 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
-
-    /* Nick Box */
-    .nick-verify {
-      background: var(--glass); border: 1px solid var(--glass-border);
-      padding: 25px; border-radius: 24px; margin-bottom: 30px; text-align: center;
-      backdrop-filter: blur(10px); position: relative;
-    }
-    .input-group { position: relative; max-width: 320px; margin: 15px auto; }
-    .input-group input {
-      width: 100%; padding: 15px; border-radius: 12px; border: 1px solid var(--glass-border);
-      background: #000; color: #fff; text-align: center; font-size: 16px; outline: none;
-    }
-    .input-group input:focus { border-color: var(--accent); box-shadow: var(--neon-glow); }
-    #v-mark { position: absolute; right: 15px; top: 15px; font-size: 20px; }
-
-    /* ПРЕДУПРЕЖДЕНИЕ О НИКЕ */
-    .warning-text {
-      color: var(--danger); font-size: 12px; font-weight: bold;
-      text-transform: uppercase; letter-spacing: 1px; margin-top: 10px;
-      animation: pulseRed 1.5s infinite;
-    }
-
-    @keyframes pulseRed {
-      0% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.7; transform: scale(0.98); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-
-    /* Tabs */
-    .tabs-nav { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
-    .tab-btn {
-      background: var(--glass); border: 1px solid var(--glass-border);
-      color: #fff; padding: 12px 18px; border-radius: 12px; cursor: pointer; font-size: 14px;
-    }
-    .tab-btn.active { background: var(--accent); color: var(--bg); font-weight: bold; }
-
-    .tab-content { display: none; }
-    .tab-content.active { display: block; animation: fadeIn 0.4s ease; }
-
-    /* Cards */
-    .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
-    .card {
-      background: var(--glass); border: 1px solid var(--glass-border); border-radius: 20px;
-      padding: 20px; text-align: center;
-    }
-    .card:hover { transform: translateY(-5px); border-color: var(--accent); }
-    .robux-icon { width: 35px; height: 35px; margin-bottom: 10px; fill: var(--premium); }
-    .price-tag { color: var(--accent); font-weight: bold; margin-bottom: 15px; font-size: 18px; }
-
-    .add-btn {
-      width: 100%; padding: 10px; border: none; border-radius: 8px;
-      background: rgba(255,255,255,0.05); color: #fff; font-weight: 700; cursor: pointer;
-    }
-    .card:hover .add-btn { background: var(--accent); color: var(--bg); }
-
-    /* Cart */
-    .cart-container { 
-        background: rgba(0,0,0,0.4); border: 1px solid var(--premium);
-        border-radius: 25px; padding: 25px; margin-top: 30px;
-    }
-    .cart-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--glass-border); }
-    .checkout-btn {
-      display: flex; align-items: center; justify-content: center; gap: 10px;
-      width: 100%; padding: 18px; background: #0088cc; color: #fff;
-      text-decoration: none; border-radius: 15px; font-weight: bold; font-size: 18px; margin-top: 20px;
-    }
-
-    #admin-panel { display: none; background: rgba(0,255,136,0.1); border: 1px solid var(--success); padding: 20px; border-radius: 20px; margin-top: 20px; }
-    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; z-index: 999; }
+    .leaderboard h2 { font-family: 'Orbitron'; font-size: 16px; color: var(--premium); text-align: center; margin-bottom: 20px; letter-spacing: 2px; }
     
-    footer { margin-top: 50px; text-align: center; padding: 30px; opacity: 0.5; font-size: 11px; border-top: 1px solid var(--glass-border); }
-    .hammer { cursor: pointer; margin-top: 15px; display: inline-block; font-size: 18px; }
+    .leader-row { 
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 15px; border-bottom: 1px solid var(--glass-border); font-size: 15px;
+    }
+    .leader-row:last-child { border: none; }
+    .leader-row:nth-child(2) { background: rgba(255, 194, 0, 0.05); border-radius: 10px; color: var(--premium); font-weight: bold; }
+    
+    .crown { color: var(--premium); margin-right: 8px; }
 
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    /* ВВОД НИКА */
+    .nick-verify { text-align: center; margin-bottom: 40px; }
+    .input-box {
+      width: 100%; max-width: 350px; padding: 18px; border-radius: 15px; border: 1px solid var(--glass-border);
+      background: #000; color: #fff; font-size: 16px; text-align: center; outline: none; margin: 0 auto; display: block;
+    }
+    .input-box:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(0,224,255,0.2); }
+    .warning { color: var(--danger); font-size: 10px; font-weight: bold; margin-top: 12px; text-transform: uppercase; letter-spacing: 1px; }
+
+    /* СЕТКА ТОВАРОВ */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 15px; margin-bottom: 40px; }
+    .card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 20px; padding: 20px; text-align: center; }
+    .card:hover { border-color: var(--accent); transform: translateY(-5px); background: rgba(255,255,255,0.05); }
+    .card h3 { margin: 0; font-size: 18px; color: #fff; }
+    .price { color: var(--accent); font-weight: 700; font-size: 22px; margin: 10px 0; }
+    .btn { width: 100%; padding: 10px; border: none; border-radius: 10px; background: var(--accent); color: #000; font-weight: 800; cursor: pointer; }
+
+    /* КОРЗИНА */
+    .cart { background: rgba(0,224,255,0.05); border: 1px solid var(--accent); border-radius: 20px; padding: 20px; display: none; }
+    .checkout { 
+      display: block; text-align: center; padding: 18px; background: #0088cc; color: #fff; 
+      text-decoration: none; border-radius: 12px; font-weight: bold; margin-top: 20px; font-size: 18px;
+    }
+
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; z-index: 999; }
+    footer { text-align: center; padding: 40px; opacity: 0.2; font-size: 12px; }
   </style>
 </head>
 <body oncontextmenu="return false;">
 
 <div class="container">
   <header>
-    <h1>WIKSXZ STORE</h1>
-    <p>Моментальные Робуксы в Кыргызстане</p>
-    <div class="rate-badge" id="rate-display">ЗАГРУЗКА КУРСА...</div>
+    <h1>WIKSXZ SHOP</h1>
+    <div id="rate" style="font-size: 12px; margin-top: 10px; color: var(--accent); opacity: 0.8;">ОБНОВЛЕНИЕ КУРСА...</div>
   </header>
 
+  <div class="leaderboard">
+    <h2><i class="fas fa-users"></i> ТАБЛИЦА ПОКУПАТЕЛЕЙ</h2>
+    <div id="player-list">
+      <div style="text-align:center; opacity:0.3; padding: 10px;">Загрузка списка игроков...</div>
+    </div>
+  </div>
+
   <div class="nick-verify">
-    <div style="font-size: 11px; opacity: 0.6; letter-spacing: 1px;">ПРОВЕРКА АККАУНТА</div>
-    <div class="input-group">
-      <input type="text" id="user-nick" placeholder="Введи ник (напр. Dimal20138)" oninput="handleNickInput()">
-      <div id="v-mark"></div>
-    </div>
-    <div class="warning-text">⚠️ Пишите ник правильно, иначе я не несу ответственность за ваши робуксы!</div>
-    <div id="user-stats" style="display:none; color: var(--success); font-size: 13px; font-weight: bold; margin-top:10px;">
-      <i class="fas fa-crown"></i> Куплено ранее: <span id="total-rbx">0</span> R$
-    </div>
+    <input type="text" id="nick" class="input-box" placeholder="Введи свой ник Roblox" oninput="validate()">
+    <div class="warning">⚠️ ОШИБКА В НИКЕ = РОБУКСЫ НЕ ПРИДУТ. Я НЕ НЕСУ ОТВЕТСТВЕННОСТЬ!</div>
   </div>
 
-  <div class="tabs-nav">
-    <button class="tab-btn active" onclick="openTab(event, 'shop')">Магазин</button>
-    <button class="tab-btn" onclick="openTab(event, 'reviews')">Отзывы</button>
-    <button class="tab-btn" onclick="openTab(event, 'about')">О нас</button>
+  <div class="grid">
+    <div class="card"><h3>40 R$</h3><div class="price">$0.49</div><button class="btn" onclick="buy(40, 0.49)">В КОРЗИНУ</button></div>
+    <div class="card"><h3>80 R$</h3><div class="price">$0.99</div><button class="btn" onclick="buy(80, 0.99)">В КОРЗИНУ</button></div>
+    <div class="card"><h3>400 R$</h3><div class="price">$4.99</div><button class="btn" onclick="buy(400, 4.99)">В КОРЗИНУ</button></div>
+    <div class="card"><h3>800 R$</h3><div class="price">$9.99</div><button class="btn" onclick="buy(800, 9.99)">В КОРЗИНУ</button></div>
+    <div class="card"><h3>1700 R$</h3><div class="price">$19.99</div><button class="btn" onclick="buy(1700, 19.99)">В КОРЗИНУ</button></div>
   </div>
 
-  <div id="shop" class="tab-content active">
-    <div class="products-grid">
-      <div class="card">
-        <svg class="robux-icon" viewBox="0 0 45 45"><path d="M22.5 0L42.0642 11.25V33.75L22.5 45L2.93583 33.75V11.25L22.5 0Z"/></svg>
-        <h3>40 R$</h3><div class="price-tag">$0.49</div>
-        <button class="add-btn" onclick="addToCart(40, 0.49)">В корзину</button>
-      </div>
-      <div class="card">
-        <svg class="robux-icon" viewBox="0 0 45 45"><path d="M22.5 0L42.0642 11.25V33.75L22.5 45L2.93583 33.75V11.25L22.5 0Z"/></svg>
-        <h3>80 R$</h3><div class="price-tag">$0.99</div>
-        <button class="add-btn" onclick="addToCart(80, 0.99)">В корзину</button>
-      </div>
-      <div class="card">
-        <svg class="robux-icon" viewBox="0 0 45 45"><path d="M22.5 0L42.0642 11.25V33.75L22.5 45L2.93583 33.75V11.25L22.5 0Z"/></svg>
-        <h3>400 R$</h3><div class="price-tag">$4.99</div>
-        <button class="add-btn" onclick="addToCart(400, 4.99)">В корзину</button>
-      </div>
-      <div class="card">
-        <svg class="robux-icon" viewBox="0 0 45 45"><path d="M22.5 0L42.0642 11.25V33.75L22.5 45L2.93583 33.75V11.25L22.5 0Z"/></svg>
-        <h3>800 R$</h3><div class="price-tag">$9.99</div>
-        <button class="add-btn" onclick="addToCart(800, 9.99)">В корзину</button>
-      </div>
-      <div class="card">
-        <svg class="robux-icon" viewBox="0 0 45 45"><path d="M22.5 0L42.0642 11.25V33.75L22.5 45L2.93583 33.75V11.25L22.5 0Z"/></svg>
-        <h3>1700 R$</h3><div class="price-tag">$19.99</div>
-        <button class="add-btn" onclick="addToCart(1700, 19.99)">В корзину</button>
-      </div>
+  <div id="cart-box" class="cart">
+    <div id="items"></div>
+    <div style="text-align:right; margin-top:20px;">
+      <div style="font-size:12px; opacity:0.6;">ИТОГО К ОПЛАТЕ:</div>
+      <div id="total" style="font-family:'Orbitron'; font-size:32px; color:var(--premium);">0 СОМ</div>
+      <a href="#" id="tg-link" class="checkout">ОПЛАТИТЬ ЧЕРЕЗ TELEGRAM</a>
     </div>
-
-    <div id="cart-ui" style="display:none;">
-      <div class="cart-container">
-        <div id="cart-items"></div>
-        <div style="text-align: right; margin-top: 15px;">
-          <h2 id="total-som" style="color:var(--premium); font-family: 'Orbitron'; font-size: 28px; margin:0;">0 сом</h2>
-          <a href="#" id="pay-link" class="checkout-btn"><i class="fab fa-telegram-plane"></i> К ОПЛАТЕ В TELEGRAM</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="reviews" class="tab-content">
-    <div class="card"><p>Всё супер, робуксы пришли быстро! 🇰🇬</p></div>
-  </div>
-
-  <div id="about" class="tab-content">
-    <div class="card" style="text-align: left; line-height: 1.6;">
-      <h3>О нашем магазине</h3>
-      <p>Wiksxz Store — моментальные робуксы в Кыргызстане.</p>
-      <p style="color:#ff4444; font-weight:bold; border-top:1px solid rgba(255,255,255,0.1); padding-top:10px;">
-        ⚠️ ВАЖНО: Если вы указали ник с ошибкой — робуксы уйдут другому пользователю. В этом случае я не несу ответственность и возврат средств не производится. Будьте внимательны!
-      </p>
-    </div>
-  </div>
-
-  <div id="admin-panel">
-    <h3>Admin Access Granted</h3>
-    <a href="https://docs.google.com/spreadsheets/d/1duBvq0ywgpBwM4sk2Er7bIpTYWkpQSj4fQ4FI_yrAP8/edit" target="_blank" style="color:var(--accent)">Открыть таблицу заказов</a>
   </div>
 
   <footer>
-    © 2026 Wiksxz Store<br>
-    <i class="fas fa-hammer hammer" onclick="tapHammer()"></i>
+    © 2026 Wiksxz Shop <br>
+    <i class="fas fa-hammer" style="margin-top:20px; cursor:pointer;" onclick="tap()"></i>
   </footer>
 </div>
 
-<div class="modal" id="login-modal">
-  <div class="card" style="width: 280px;">
-    <h3>ВХОД</h3>
-    <input type="text" id="adm-l" placeholder="Логин" style="width:100%; padding:10px; margin-bottom:10px; background:#000; color:#fff; border:1px solid var(--glass-border);">
-    <input type="password" id="adm-p" placeholder="Пароль" style="width:100%; padding:10px; margin-bottom:15px; background:#000; color:#fff; border:1px solid var(--glass-border);">
-    <button class="add-btn" onclick="doLogin()" style="background:var(--accent); color:#000;">OK</button>
+<div class="modal" id="admin-m">
+  <div style="background:#111; padding:30px; border-radius:20px; border:1px solid var(--accent); width:280px; text-align:center;">
+    <h3 style="color:var(--accent); font-family:'Orbitron';">ADMIN</h3>
+    <input type="text" id="al" placeholder="Логин" style="width:100%; padding:10px; margin-bottom:10px; background:#000; color:#fff; border:1px solid #333;">
+    <input type="password" id="ap" placeholder="Пароль" style="width:100%; padding:10px; margin-bottom:20px; background:#000; color:#fff; border:1px solid #333;">
+    <button class="btn" onclick="login()">ВХОД</button>
   </div>
 </div>
 
 <script>
   let cart = [];
-  let rate = 92.0;
-  let isVerified = false;
-  let taps = 0;
-  const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1duBvq0ywgpBwM4sk2Er7bIpTYWkpQSj4fQ4FI_yrAP8/gviz/tq?tqx=out:csv';
+  let rate = 92.5;
+  let valid = false;
+  let clicks = 0;
+  const URL = 'https://docs.google.com/spreadsheets/d/1duBvq0ywgpBwM4sk2Er7bIpTYWkpQSj4fQ4FI_yrAP8/gviz/tq?tqx=out:csv';
 
-  async function getRate() {
+  async function init() {
     try {
       const r = await fetch('https://open.er-api.com/v6/latest/USD');
       const d = await r.json();
       rate = d.rates.KGS + 5;
-      document.getElementById('rate-display').innerText = `КУРС: ${rate.toFixed(2)} СОМ`;
-    } catch(e) { document.getElementById('rate-display').innerText = "КУРС: 93.00 СОМ"; }
-  }
+      document.getElementById('rate').innerText = `ТЕКУЩИЙ КУРС: ${rate.toFixed(2)} СОМ / $1`;
 
-  async function handleNickInput() {
-    const nick = document.getElementById('user-nick').value.trim();
-    const mark = document.getElementById('v-mark');
-    const stats = document.getElementById('user-stats');
-    
-    if(nick.length < 3) { mark.innerHTML = ""; stats.style.display="none"; isVerified = false; return; }
-    
-    mark.innerHTML = "✅"; mark.style.color = "#00ff88";
-    isVerified = true;
-
-    try {
-      const res = await fetch(SHEET_URL);
+      const res = await fetch(URL);
       const csv = await res.text();
-      const rows = csv.split('\n').map(r => r.split(',').map(c => c.replace(/"/g,'')));
-      let total = 0;
+      const rows = csv.split('\n').map(row => row.split(',').map(c => c.replace(/"/g,'')));
+      
+      let stats = {};
       rows.forEach(row => {
-        if(row[0] && row[0].toLowerCase() === nick.toLowerCase()) total += parseInt(row[1]) || 0;
+        let name = row[0], rbx = parseInt(row[2]);
+        if(name && rbx) stats[name] = (stats[name] || 0) + rbx;
       });
-      if(total > 0) {
-        document.getElementById('user-stats').style.display = "block";
-        document.getElementById('total-rbx').innerText = total;
-      }
+
+      const list = document.getElementById('player-list');
+      list.innerHTML = "";
+      Object.entries(stats).sort((a,b) => b[1]-a[1]).forEach(([n, v], i) => {
+        list.innerHTML += `<div class="leader-row">
+          <span>${i===0?'<i class="fas fa-crown crown"></i>':(i+1)+'.'} ${n}</span>
+          <b style="color:var(--success)">${v} R$</b>
+        </div>`;
+      });
     } catch(e) {}
   }
 
-  function addToCart(rbx, usd) {
-    if(!isVerified) { alert("Введите ник игрока!"); return; }
-    cart.push({rbx, usd});
-    renderCart();
+  function validate() {
+    let n = document.getElementById('nick').value.trim();
+    valid = n.length >= 3;
   }
 
-  function renderCart() {
-    const ui = document.getElementById('cart-ui');
-    const box = document.getElementById('cart-items');
-    if(cart.length === 0) { ui.style.display = "none"; return; }
-    ui.style.display = "block";
-    box.innerHTML = "";
-    let sumU = 0, sumR = 0;
-    cart.forEach((item, i) => {
-      sumU += item.usd; sumR += item.rbx;
-      box.innerHTML += `<div class="cart-item">
-        <span>${item.rbx} R$</span>
-        <span onclick="cart.splice(${i},1); renderCart()" style="color:red; cursor:pointer;">&times;</span>
+  function buy(rbx, usd) {
+    if(!valid) return alert("Сначала введи свой ник!");
+    cart.push({rbx, usd});
+    update();
+  }
+
+  function update() {
+    const box = document.getElementById('cart-box');
+    const items = document.getElementById('items');
+    box.style.display = cart.length ? "block" : "none";
+    items.innerHTML = "";
+    let u = 0, r = 0;
+    cart.forEach((it, i) => {
+      u += it.usd; r += it.rbx;
+      items.innerHTML += `<div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.05);">
+        <span>${it.rbx} R$</span>
+        <span onclick="cart.splice(${i},1); update()" style="color:red; cursor:pointer;">&times; убрать</span>
       </div>`;
     });
-    const finalSom = Math.ceil(sumU * rate);
-    document.getElementById('total-som').innerText = finalSom + " сом";
-    const msg = `💎 ЗАКАЗ\nНик: ${document.getElementById('user-nick').value}\nТовар: ${sumR} R$\nИтого: ${finalSom} сом\n\n⚠️ Я подтверждаю, что ник указан верно.`;
-    document.getElementById('pay-link').href = `https://t.me/i_wiksxz0?text=${encodeURIComponent(msg)}`;
+    let s = Math.ceil(u * rate);
+    document.getElementById('total').innerText = s + " СОМ";
+    let msg = `💎 ЗАКАЗ\nНик: ${document.getElementById('nick').value}\nТовар: ${r} R$\nСумма: ${s} сом\n\nЯ подтверждаю, что ник верный.`;
+    document.getElementById('tg-link').href = `https://t.me/i_wiksxz0?text=${encodeURIComponent(msg)}`;
   }
 
-  function openTab(e, name) {
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById(name).classList.add('active');
-    e.currentTarget.classList.add('active');
+  function tap() { clicks++; if(clicks >= 30) document.getElementById('admin-m').style.display="flex"; }
+  function login() {
+    if(document.getElementById('al').value === "Wiksxz" && document.getElementById('ap').value === "WiksxzShop") {
+      window.location.href = "https://docs.google.com/spreadsheets/d/1duBvq0ywgpBwM4sk2Er7bIpTYWkpQSj4fQ4FI_yrAP8/edit";
+    } else alert("Ошибка!");
   }
 
-  function tapHammer() {
-    taps++;
-    if(taps >= 30) { document.getElementById('login-modal').style.display="flex"; taps=0; }
-  }
-
-  function doLogin() {
-    if(document.getElementById('adm-l').value === "Wiksxz" && document.getElementById('adm-p').value === "WiksxzShop") {
-      document.getElementById('login-modal').style.display="none";
-      document.getElementById('admin-panel').style.display="block";
-    } else { alert("Неверно!"); }
-  }
-
-  getRate();
+  init();
 </script>
 </body>
 </html>
