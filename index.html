@@ -22,28 +22,33 @@
     body {
       margin: 0; background: var(--bg); color: #fff;
       font-family: 'Inter', sans-serif; overflow-x: hidden;
-      background: radial-gradient(circle at 50% 50%, #0a111a 0%, #030406 100%);
+      /* ВОЗВРАЩАЕМ ЗВЕЗДЫ */
+      background-image: 
+        radial-gradient(circle at 50% 50%, #0a111a 0%, #030406 100%),
+        url('https://www.transparenttextures.com/patterns/stardust.png');
+      background-attachment: fixed;
     }
 
-    .container { width: 100%; max-width: 600px; margin: 0 auto; padding: 20px 20px 220px 20px; }
+    .container { width: 100%; max-width: 600px; margin: 0 auto; padding: 20px 20px 250px 20px; }
 
     header { text-align: center; margin-bottom: 30px; }
     header h1 { font-family: 'Orbitron'; font-size: 2.2rem; margin: 0; color: var(--accent); text-shadow: 0 0 15px rgba(0,224,255,0.4); }
 
     .search-box { position: relative; margin-bottom: 20px; }
-    .search-input { width: 100%; padding: 16px 45px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.5); color: #fff; font-size: 14px; outline: none; }
+    .search-input { width: 100%; padding: 16px 45px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.7); color: #fff; font-size: 14px; outline: none; backdrop-filter: blur(5px); }
     .search-box i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--accent); }
 
     .tabs { display: flex; gap: 8px; margin-bottom: 25px; }
-    .tab-btn { flex: 1; padding: 12px; background: var(--glass); border: 1px solid rgba(255,255,255,0.05); color: #888; border-radius: 10px; cursor: pointer; font-weight: 900; font-size: 11px; }
-    .tab-btn.active { background: var(--accent); color: #000; }
+    .tab-btn { flex: 1; padding: 12px; background: var(--glass); border: 1px solid rgba(255,255,255,0.05); color: #888; border-radius: 10px; cursor: pointer; font-weight: 900; font-size: 11px; text-transform: uppercase; }
+    .tab-btn.active { background: var(--accent); color: #000; box-shadow: 0 0 15px rgba(0,224,255,0.3); }
 
     .content { display: none; animation: fadeIn 0.3s ease; }
     .content.active { display: block; }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
     .nick-box { margin-bottom: 25px; }
     .nick-input { width: 100%; padding: 18px; border-radius: 15px; border: 2px solid rgba(255,255,255,0.1); background: #000; color: #fff; font-size: 18px; text-align: center; font-weight: 900; outline: none; }
+    .nick-input:focus { border-color: var(--accent); }
     
     .legal-warn { 
       background: rgba(255, 68, 68, 0.1); border: 1px solid var(--danger);
@@ -52,32 +57,35 @@
     }
 
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 18px; padding: 20px 10px; text-align: center; }
-    .rb-count { display: block; font-size: 22px; font-weight: 900; margin: 10px 0; font-family: 'Orbitron'; }
-    .price-tag { background: rgba(0,0,0,0.3); padding: 8px; border-radius: 10px; margin-bottom: 12px; }
+    .card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 18px; padding: 20px 10px; text-align: center; backdrop-filter: blur(5px); transition: 0.3s; }
+    .card:hover { border-color: var(--accent); transform: scale(1.02); }
+    .rb-count { display: block; font-size: 22px; font-weight: 900; margin: 10px 0; font-family: 'Orbitron'; color: #fff; }
+    .price-tag { background: rgba(0,0,0,0.5); padding: 8px; border-radius: 10px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.05); }
     .p-kgs { display: block; font-size: 17px; color: #00ffa3; font-weight: 900; }
     
-    .buy-btn { width: 100%; padding: 10px; border: none; border-radius: 8px; background: #fff; color: #000; font-weight: 900; cursor: pointer; }
+    .buy-btn { width: 100%; padding: 10px; border: none; border-radius: 8px; background: #fff; color: #000; font-weight: 900; cursor: pointer; text-transform: uppercase; font-size: 11px; }
 
-    /* Корзина Новая */
+    /* КОРЗИНА */
     .cart-float {
       position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%);
-      width: 92%; max-width: 500px; background: #0a0b10; border: 2px solid var(--accent);
-      padding: 15px; border-radius: 20px; backdrop-filter: blur(15px); display: none; z-index: 2000;
-      box-shadow: 0 0 30px rgba(0,224,255,0.2);
+      width: 92%; max-width: 500px; background: rgba(10, 11, 16, 0.98); border: 2px solid var(--accent);
+      padding: 18px; border-radius: 22px; backdrop-filter: blur(20px); display: none; z-index: 2000;
+      box-shadow: 0 -10px 40px rgba(0,0,0,0.8);
     }
-    .cart-list-items { max-height: 60px; overflow-y: auto; margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 5px; }
-    .mini-badge { background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 5px; font-size: 10px; cursor: pointer; border: 1px solid transparent; }
-    .mini-badge:hover { border-color: var(--danger); color: var(--danger); }
+    .cart-list-items { max-height: 80px; overflow-y: auto; margin-bottom: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+    .mini-badge { background: rgba(255,255,255,0.08); padding: 5px 10px; border-radius: 8px; font-size: 11px; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); font-weight: bold; }
+    .mini-badge:hover { border-color: var(--danger); color: var(--danger); background: rgba(255,68,68,0.1); }
     
-    .fee-text { font-size: 11px; opacity: 0.6; margin-bottom: 5px; display: flex; justify-content: space-between; }
-    .total-line { display: flex; justify-content: space-between; font-weight: 900; font-size: 18px; border-top: 1px solid rgba(255,255,255,0.1); pt: 8px; }
+    .cart-stats { font-size: 12px; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); pb: 10px; }
+    .stat-row { display: flex; justify-content: space-between; margin-bottom: 4px; opacity: 0.8; }
+    
+    .total-line { display: flex; justify-content: space-between; font-weight: 900; font-size: 20px; align-items: center; }
 
     .cart-actions { display: grid; grid-template-columns: 1fr 2fr; gap: 10px; margin-top: 15px; }
-    .cancel-btn { padding: 15px; background: #1a1a1a; color: var(--danger); border: 1px solid var(--danger); border-radius: 12px; font-weight: 900; cursor: pointer; text-align: center; font-size: 12px; }
-    .pay-btn { padding: 15px; background: #0088cc; color: #fff; border-radius: 12px; font-weight: 900; text-decoration: none; text-align: center; }
+    .cancel-btn { padding: 15px; background: #1a1a1a; color: var(--danger); border: 1px solid var(--danger); border-radius: 12px; font-weight: 900; cursor: pointer; text-align: center; font-size: 11px; text-transform: uppercase; }
+    .pay-btn { padding: 15px; background: #0088cc; color: #fff; border-radius: 12px; font-weight: 900; text-decoration: none; text-align: center; font-size: 14px; box-shadow: 0 5px 15px rgba(0,136,204,0.3); }
 
-    footer { text-align: center; padding: 40px; font-size: 10px; opacity: 0.4; line-height: 1.6; }
+    footer { text-align: center; padding: 40px; font-size: 10px; opacity: 0.4; line-height: 1.6; font-weight: bold; }
   </style>
 </head>
 <body oncontextmenu="return false;">
@@ -100,7 +108,7 @@
     <div class="nick-box">
       <input type="text" id="unick" class="nick-input" placeholder="НИК ROBLOX">
       <div class="legal-warn">
-        МЫ НЕ НЕСЕМ ОТВЕТСТВЕННОСТИ ЗА ВАШИ ОШИБКИ В НИКЕ!<br>БУДЬТЕ ВНИМАТЕЛЬНЫ — РОБУКСЫ НЕ ВЕРНУТЬ!
+        ОТВЕТСТВЕННОСТЬ ЗА ОШИБКИ В НИКЕ МЫ НЕ НЕСЕМ!<br>БУДЬТЕ ВНИМАТЕЛЬНЫ — РОБУКСЫ НЕ ВЕРНУТЬ!
       </div>
     </div>
     <div class="grid" id="items"></div>
@@ -108,9 +116,11 @@
 
   <div id="list" class="content"><div id="table-box"></div></div>
   <div id="about" class="content">
-    <div style="background:var(--glass); padding:20px; border-radius:15px; font-size:13px;">
-        <h3 style="color:var(--accent); margin-top:0;">WIKSXZ PREMIUM</h3>
-        Надежный сервис пополнения Robux в КР. Обработка заказов вручную и через бота.
+    <div style="background:var(--glass); padding:20px; border-radius:15px; font-size:13px; line-height:1.6; border: 1px solid rgba(255,255,255,0.05);">
+        <h3 style="color:var(--accent); margin-top:0; font-family:'Orbitron';">WIKSXZ PREMIUM</h3>
+        Лучший сервис по продаже робуксов в Кыргызстане. Моментальная проверка через таблицу и удобная оплата. 
+        <br><br>
+        <b>Налог 5 сом</b> идет на поддержание работы бота и серверов.
     </div>
   </div>
 
@@ -124,14 +134,18 @@
 
 <div id="cart" class="cart-float">
   <div class="cart-list-items" id="cart-badges"></div>
-  <div class="fee-text">
-    <span>Налог на услуги (Комиссия):</span>
-    <span>5 СОМ</span>
+  
+  <div class="cart-stats">
+    <div class="stat-row"><span>Всего Робуксов:</span><b id="st-rb">0 R$</b></div>
+    <div class="stat-row"><span>Сумма в USD:</span><b id="st-usd">$0.00</b></div>
+    <div class="stat-row"><span>Комиссия:</span><b>5 СОМ</b></div>
   </div>
+
   <div class="total-line">
     <span>ИТОГО:</span>
     <span id="total" style="color:var(--accent);">0 СОМ</span>
   </div>
+
   <div class="cart-actions">
     <div class="cancel-btn" onclick="clearCart()">ОЧИСТИТЬ</div>
     <a href="#" id="tg-send" class="pay-btn" onclick="return sendOrder()">ПОДТВЕРДИТЬ</a>
@@ -155,7 +169,7 @@
   function renderShop() {
     document.getElementById('items').innerHTML = products.map(p => `
       <div class="card">
-        <i class="fas fa-gem" style="color:var(--premium); font-size:20px;"></i>
+        <i class="fas fa-cube" style="color:var(--premium); font-size:20px;"></i>
         <span class="rb-count">${p.rb} R$</span>
         <div class="price-tag"><span class="p-kgs">${Math.ceil(p.u * rate)} СОМ</span></div>
         <button class="buy-btn" onclick="buy(${p.rb}, ${p.u})">В КОРЗИНУ</button>
@@ -177,8 +191,8 @@
 
   function renderTable(data) {
     document.getElementById('table-box').innerHTML = data.map(([n,v]) => `
-      <div style="display:flex; justify-content:space-between; padding:10px; background:rgba(255,255,255,0.02); margin-bottom:5px; border-radius:8px; font-size:13px;">
-        <span>${n}</span><b>${v} R$</b>
+      <div style="display:flex; justify-content:space-between; padding:12px; background:rgba(255,255,255,0.03); margin-bottom:5px; border-radius:10px; font-size:13px; border:1px solid rgba(255,255,255,0.05);">
+        <span><i class="fas fa-user-circle" style="color:var(--accent); margin-right:8px;"></i>${n}</span><b>${v} R$</b>
       </div>
     `).join('');
   }
@@ -197,7 +211,7 @@
 
   function buy(rb, u) {
     let n = document.getElementById('unick').value.trim();
-    if(n.length < 3) return alert("Сначала введите ник Roblox!");
+    if(n.length < 3) return alert("Введите ник Roblox!");
     cart.push({rb, u});
     updateCart();
   }
@@ -219,9 +233,12 @@
     
     badgeBox.innerHTML = cart.map((c, i) => `<span class="mini-badge" onclick="removeItem(${i})">${c.rb} R$ &times;</span>`).join('');
     
-    let tu = 0;
-    cart.forEach(c => tu += c.u);
-    const kgs = Math.ceil(tu * rate) + 5; // Плюс 5 сом налог
+    let tu = 0, tr = 0;
+    cart.forEach(c => { tu += c.u; tr += c.rb; });
+    const kgs = Math.ceil(tu * rate) + 5;
+    
+    document.getElementById('st-rb').innerText = tr + " R$";
+    document.getElementById('st-usd').innerText = "$" + tu.toFixed(2);
     document.getElementById('total').innerText = kgs + " СОМ";
   }
 
@@ -231,7 +248,7 @@
     cart.forEach(c => { tr += c.rb; tu += c.u; });
     const kgs = Math.ceil(tu * rate) + 5;
 
-    const msg = `💎 НОВЫЙ ЗАКАЗ\n👤 НИК: ${nick}\n📦 ТОВАР: ${tr} Robux\n💰 К ОПЛАТЕ: ${kgs} сом (с учетом налога 5 сом)\n\n⚠️ ОТВЕТСТВЕННОСТЬ ЗА ОШИБКИ В НИКЕ ВЗЯЛ НА СЕБЯ.`;
+    const msg = `💎 НОВЫЙ ЗАКАЗ\n👤 НИК: ${nick}\n📦 ТОВАР: ${tr} Robux\n💵 ВАЛЮТА: $${tu.toFixed(2)}\n💰 К ОПЛАТЕ: ${kgs} сом (с учетом налога)\n\n⚠️ ОТВЕТСТВЕННОСТЬ ЗА ОШИБКИ В НИКЕ ВЗЯЛ НА СЕБЯ.`;
     
     window.open("https://t.me/i_wiksxz0?text=" + encodeURIComponent(msg), "_blank");
     return false;
