@@ -25,12 +25,11 @@
       background: radial-gradient(circle at 50% 50%, #0a111a 0%, #030406 100%);
     }
 
-    .container { width: 100%; max-width: 600px; margin: 0 auto; padding: 20px 20px 180px 20px; }
+    .container { width: 100%; max-width: 600px; margin: 0 auto; padding: 20px 20px 220px 20px; }
 
     header { text-align: center; margin-bottom: 30px; }
     header h1 { font-family: 'Orbitron'; font-size: 2.2rem; margin: 0; color: var(--accent); text-shadow: 0 0 15px rgba(0,224,255,0.4); }
 
-    /* Поиск и Вкладки */
     .search-box { position: relative; margin-bottom: 20px; }
     .search-input { width: 100%; padding: 16px 45px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.5); color: #fff; font-size: 14px; outline: none; }
     .search-box i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--accent); }
@@ -43,10 +42,8 @@
     .content.active { display: block; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-    /* Ник и Предупреждение */
     .nick-box { margin-bottom: 25px; }
     .nick-input { width: 100%; padding: 18px; border-radius: 15px; border: 2px solid rgba(255,255,255,0.1); background: #000; color: #fff; font-size: 18px; text-align: center; font-weight: 900; outline: none; }
-    .nick-input:focus { border-color: var(--accent); }
     
     .legal-warn { 
       background: rgba(255, 68, 68, 0.1); border: 1px solid var(--danger);
@@ -54,37 +51,43 @@
       border-radius: 10px; margin-top: 10px; text-align: center; text-transform: uppercase;
     }
 
-    /* Сетка товаров */
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 18px; padding: 20px 10px; text-align: center; }
     .rb-count { display: block; font-size: 22px; font-weight: 900; margin: 10px 0; font-family: 'Orbitron'; }
     .price-tag { background: rgba(0,0,0,0.3); padding: 8px; border-radius: 10px; margin-bottom: 12px; }
     .p-kgs { display: block; font-size: 17px; color: #00ffa3; font-weight: 900; }
-    .p-usd { display: block; font-size: 11px; opacity: 0.5; }
+    
     .buy-btn { width: 100%; padding: 10px; border: none; border-radius: 8px; background: #fff; color: #000; font-weight: 900; cursor: pointer; }
 
-    /* Корзина */
+    /* Корзина Новая */
     .cart-float {
       position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%);
       width: 92%; max-width: 500px; background: #0a0b10; border: 2px solid var(--accent);
       padding: 15px; border-radius: 20px; backdrop-filter: blur(15px); display: none; z-index: 2000;
+      box-shadow: 0 0 30px rgba(0,224,255,0.2);
     }
+    .cart-list-items { max-height: 60px; overflow-y: auto; margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 5px; }
+    .mini-badge { background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 5px; font-size: 10px; cursor: pointer; border: 1px solid transparent; }
+    .mini-badge:hover { border-color: var(--danger); color: var(--danger); }
+    
+    .fee-text { font-size: 11px; opacity: 0.6; margin-bottom: 5px; display: flex; justify-content: space-between; }
+    .total-line { display: flex; justify-content: space-between; font-weight: 900; font-size: 18px; border-top: 1px solid rgba(255,255,255,0.1); pt: 8px; }
+
     .cart-actions { display: grid; grid-template-columns: 1fr 2fr; gap: 10px; margin-top: 15px; }
-    .cancel-btn { padding: 15px; background: #1a1a1a; color: var(--danger); border: 1px solid var(--danger); border-radius: 12px; font-weight: 900; cursor: pointer; text-align: center; }
+    .cancel-btn { padding: 15px; background: #1a1a1a; color: var(--danger); border: 1px solid var(--danger); border-radius: 12px; font-weight: 900; cursor: pointer; text-align: center; font-size: 12px; }
     .pay-btn { padding: 15px; background: #0088cc; color: #fff; border-radius: 12px; font-weight: 900; text-decoration: none; text-align: center; }
 
-    /* Футер */
     footer { text-align: center; padding: 40px; font-size: 10px; opacity: 0.4; line-height: 1.6; }
   </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
 <div class="container">
   <header><h1>WIKSXZ SHOP</h1></header>
 
   <div class="search-box">
     <i class="fas fa-search"></i>
-    <input type="text" id="search" class="search-input" placeholder="Найти игрока в таблице..." oninput="doSearch()">
+    <input type="text" id="search" class="search-input" placeholder="Поиск игрока в таблице..." oninput="doSearch()">
   </div>
 
   <div class="tabs">
@@ -95,22 +98,19 @@
 
   <div id="shop" class="content active">
     <div class="nick-box">
-      <input type="text" id="unick" class="nick-input" placeholder="ВАШ НИК ROBLOX">
+      <input type="text" id="unick" class="nick-input" placeholder="НИК ROBLOX">
       <div class="legal-warn">
-        АДМИНИСТРАЦИЯ НЕ НЕСЕТ ОТВЕТСТВЕННОСТИ ЗА ОШИБКИ В НИКЕ!<br>ВВОДИТЕ ДАННЫЕ ВНИМАТЕЛЬНО!
+        МЫ НЕ НЕСЕМ ОТВЕТСТВЕННОСТИ ЗА ВАШИ ОШИБКИ В НИКЕ!<br>БУДЬТЕ ВНИМАТЕЛЬНЫ — РОБУКСЫ НЕ ВЕРНУТЬ!
       </div>
     </div>
     <div class="grid" id="items"></div>
   </div>
 
-  <div id="list" class="content">
-    <div id="table-box"></div>
-  </div>
-
+  <div id="list" class="content"><div id="table-box"></div></div>
   <div id="about" class="content">
-    <div style="background:var(--glass); padding:20px; border-radius:15px; font-size:14px; line-height:1.6;">
-      <h3 style="color:var(--accent); margin-top:0;">WIKSXZ PREMIUM</h3>
-      Мы — проверенный сервис по продаже Robux. Быстрая доставка, низкий курс и полная прозрачность. Все покупки фиксируются в публичной таблице.
+    <div style="background:var(--glass); padding:20px; border-radius:15px; font-size:13px;">
+        <h3 style="color:var(--accent); margin-top:0;">WIKSXZ PREMIUM</h3>
+        Надежный сервис пополнения Robux в КР. Обработка заказов вручную и через бота.
     </div>
   </div>
 
@@ -123,13 +123,18 @@
 </div>
 
 <div id="cart" class="cart-float">
-  <div style="display:flex; justify-content:space-between; font-weight:900;">
+  <div class="cart-list-items" id="cart-badges"></div>
+  <div class="fee-text">
+    <span>Налог на услуги (Комиссия):</span>
+    <span>5 СОМ</span>
+  </div>
+  <div class="total-line">
     <span>ИТОГО:</span>
     <span id="total" style="color:var(--accent);">0 СОМ</span>
   </div>
   <div class="cart-actions">
-    <div class="cancel-btn" onclick="clearCart()">ОТМЕНА</div>
-    <a href="#" id="tg-send" class="pay-btn">КУПИТЬ</a>
+    <div class="cancel-btn" onclick="clearCart()">ОЧИСТИТЬ</div>
+    <a href="#" id="tg-send" class="pay-btn" onclick="return sendOrder()">ПОДТВЕРДИТЬ</a>
   </div>
 </div>
 
@@ -150,12 +155,9 @@
   function renderShop() {
     document.getElementById('items').innerHTML = products.map(p => `
       <div class="card">
-        <i class="fas fa-gem" style="color:var(--premium); font-size:25px;"></i>
+        <i class="fas fa-gem" style="color:var(--premium); font-size:20px;"></i>
         <span class="rb-count">${p.rb} R$</span>
-        <div class="price-tag">
-          <span class="p-kgs">${Math.ceil(p.u * rate)} СОМ</span>
-          <span class="p-usd">$${p.u}</span>
-        </div>
+        <div class="price-tag"><span class="p-kgs">${Math.ceil(p.u * rate)} СОМ</span></div>
         <button class="buy-btn" onclick="buy(${p.rb}, ${p.u})">В КОРЗИНУ</button>
       </div>
     `).join('');
@@ -175,7 +177,7 @@
 
   function renderTable(data) {
     document.getElementById('table-box').innerHTML = data.map(([n,v]) => `
-      <div style="display:flex; justify-content:space-between; padding:12px; background:rgba(255,255,255,0.02); margin-bottom:5px; border-radius:8px;">
+      <div style="display:flex; justify-content:space-between; padding:10px; background:rgba(255,255,255,0.02); margin-bottom:5px; border-radius:8px; font-size:13px;">
         <span>${n}</span><b>${v} R$</b>
       </div>
     `).join('');
@@ -195,8 +197,13 @@
 
   function buy(rb, u) {
     let n = document.getElementById('unick').value.trim();
-    if(n.length < 3) return alert("Введите ник Roblox!");
+    if(n.length < 3) return alert("Сначала введите ник Roblox!");
     cart.push({rb, u});
+    updateCart();
+  }
+
+  function removeItem(idx) {
+    cart.splice(idx, 1);
     updateCart();
   }
 
@@ -207,16 +214,27 @@
 
   function updateCart() {
     const box = document.getElementById('cart');
+    const badgeBox = document.getElementById('cart-badges');
     box.style.display = cart.length ? 'block' : 'none';
+    
+    badgeBox.innerHTML = cart.map((c, i) => `<span class="mini-badge" onclick="removeItem(${i})">${c.rb} R$ &times;</span>`).join('');
+    
+    let tu = 0;
+    cart.forEach(c => tu += c.u);
+    const kgs = Math.ceil(tu * rate) + 5; // Плюс 5 сом налог
+    document.getElementById('total').innerText = kgs + " СОМ";
+  }
+
+  function sendOrder() {
+    const nick = document.getElementById('unick').value;
     let tr = 0, tu = 0;
     cart.forEach(c => { tr += c.rb; tu += c.u; });
-    const kgs = Math.ceil(tu * rate);
-    document.getElementById('total').innerText = kgs + " СОМ";
+    const kgs = Math.ceil(tu * rate) + 5;
+
+    const msg = `💎 НОВЫЙ ЗАКАЗ\n👤 НИК: ${nick}\n📦 ТОВАР: ${tr} Robux\n💰 К ОПЛАТЕ: ${kgs} сом (с учетом налога 5 сом)\n\n⚠️ ОТВЕТСТВЕННОСТЬ ЗА ОШИБКИ В НИКЕ ВЗЯЛ НА СЕБЯ.`;
     
-    // ФИКС ПРОМТА
-    const nick = document.getElementById('unick').value;
-    const msg = `💎 НОВЫЙ ЗАКАЗ\n👤 НИК: ${nick}\n📦 ТОВАР: ${tr} Robux\n💰 К ОПЛАТЕ: ${kgs} сом\n\n⚠️ С ПРАВИЛАМИ И ПРЕДУПРЕЖДЕНИЕМ О НИКЕ ОЗНАКОМЛЕН.`;
-    document.getElementById('tg-send').href = "https://t.me/i_wiksxz0?text=" + encodeURIComponent(msg);
+    window.open("https://t.me/i_wiksxz0?text=" + encodeURIComponent(msg), "_blank");
+    return false;
   }
 
   function adm() {
