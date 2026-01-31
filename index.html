@@ -2,205 +2,265 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Wiksxz Store | Официальный магазин 🇰🇬</title>
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" />
+  <title>WIKSXZ PREMIUM STORE</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;500;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&family=Plus+Jakarta+Sans:wght@300;500;800&display=swap');
 
     :root {
-      --bg: #010306;
-      --accent: #00e0ff;
-      --premium: #ffc200;
-      --success: #00ff88;
-      --danger: #ff4444;
+      --primary: #00f2ff;
+      --secondary: #7000ff;
+      --bg: #050507;
       --glass: rgba(255, 255, 255, 0.03);
-      --glass-border: rgba(255, 255, 255, 0.08);
+      --border: rgba(255, 255, 255, 0.08);
+      --success: #00ffa3;
     }
 
-    * { box-sizing: border-box; transition: all 0.3s ease; }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    
     body {
-      margin: 0; background: var(--bg); color: #fff; font-family: 'Inter', sans-serif;
-      background-image: radial-gradient(circle at 50% 0%, rgba(0, 224, 255, 0.1) 0%, transparent 50%);
-      -webkit-user-select: none; user-select: none;
+      margin: 0; background: var(--bg); color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden; scroll-behavior: smooth;
+      background-image: 
+        radial-gradient(circle at 10% 10%, rgba(0, 242, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 90% 90%, rgba(112, 0, 255, 0.05) 0%, transparent 50%);
     }
 
-    .container { width: 100%; max-width: 800px; margin: 0 auto; padding: 20px; }
+    /* Защита: запрет выделения */
+    body { -webkit-user-select: none; user-select: none; }
 
-    header { text-align: center; margin-bottom: 40px; padding-top: 20px; }
-    header h1 { font-family: 'Orbitron', sans-serif; font-size: 2.5rem; margin: 0; color: #fff; text-shadow: 0 0 20px rgba(0,224,255,0.6); }
+    .container { width: 100%; max-width: 1000px; margin: 0 auto; padding: 20px; }
 
-    /* ТАБЛИЦА ИГРОКОВ (ЛИДЕРБОРД) */
-    .leaderboard {
-      background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 100%);
-      border: 1px solid var(--glass-border); border-radius: 24px; padding: 25px; margin-bottom: 40px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    /* Дизайн заголовка */
+    header { text-align: center; padding: 40px 0; }
+    header h1 { 
+      font-family: 'Orbitron'; font-size: clamp(2rem, 10vw, 4rem); margin: 0;
+      background: linear-gradient(to right, #fff, var(--primary));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 20px rgba(0,242,255,0.3));
     }
-    .leaderboard h2 { font-family: 'Orbitron'; font-size: 16px; color: var(--premium); text-align: center; margin-bottom: 20px; letter-spacing: 2px; }
-    
-    .leader-row { 
+
+    /* Живой поиск и Таблица */
+    .database-section {
+      background: var(--glass); border: 1px solid var(--border);
+      border-radius: 30px; padding: 25px; backdrop-filter: blur(20px);
+      margin-bottom: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    }
+    .search-wrapper { position: relative; margin-bottom: 20px; }
+    .search-input {
+      width: 100%; padding: 18px 50px; border-radius: 15px; border: 1px solid var(--border);
+      background: rgba(0,0,0,0.4); color: #fff; font-size: 16px; outline: none;
+    }
+    .search-input:focus { border-color: var(--primary); box-shadow: 0 0 20px rgba(0,242,255,0.1); }
+    .search-icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--primary); }
+
+    .table-container { max-height: 300px; overflow-y: auto; scrollbar-width: thin; }
+    .player-row {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 12px 15px; border-bottom: 1px solid var(--glass-border); font-size: 15px;
+      padding: 15px; border-radius: 12px; margin-bottom: 8px;
+      background: rgba(255,255,255,0.02); border: 1px solid transparent;
     }
-    .leader-row:last-child { border: none; }
-    .leader-row:nth-child(2) { background: rgba(255, 194, 0, 0.05); border-radius: 10px; color: var(--premium); font-weight: bold; }
+    .player-row:hover { background: rgba(255,255,255,0.05); border-color: var(--border); }
+    .rank-gold { color: #ffbc00; font-weight: 800; }
+
+    /* Поле ввода ника */
+    .order-box { text-align: center; margin-bottom: 40px; }
+    .main-input {
+      width: 100%; max-width: 450px; padding: 22px; border-radius: 20px;
+      border: 2px solid var(--border); background: #000; color: #fff;
+      font-size: 20px; font-weight: 800; text-align: center; outline: none;
+    }
+    .main-input:focus { border-color: var(--primary); }
+
+    /* Сетка товаров */
+    .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 20px; }
+    .item-card {
+      background: var(--glass); border: 1px solid var(--border); border-radius: 28px;
+      padding: 30px 15px; text-align: center; position: relative; transition: 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+    }
+    .item-card:hover { transform: translateY(-10px) scale(1.02); background: rgba(0,242,255,0.03); border-color: var(--primary); }
+    .rb-logo { width: 50px; margin-bottom: 15px; filter: drop-shadow(0 0 10px #ffbc00); }
+    .rb-val { font-size: 28px; font-weight: 900; display: block; margin-bottom: 10px; }
+    .price-group { margin-bottom: 20px; }
+    .p-usd { font-size: 14px; opacity: 0.5; }
+    .p-kgs { font-size: 22px; color: var(--success); font-weight: 800; display: block; }
     
-    .crown { color: var(--premium); margin-right: 8px; }
-
-    /* ВВОД НИКА */
-    .nick-verify { text-align: center; margin-bottom: 40px; }
-    .input-box {
-      width: 100%; max-width: 350px; padding: 18px; border-radius: 15px; border: 1px solid var(--glass-border);
-      background: #000; color: #fff; font-size: 16px; text-align: center; outline: none; margin: 0 auto; display: block;
+    .add-btn {
+      width: 100%; padding: 14px; border: none; border-radius: 15px;
+      background: #fff; color: #000; font-weight: 800; cursor: pointer;
+      text-transform: uppercase; letter-spacing: 1px;
     }
-    .input-box:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(0,224,255,0.2); }
-    .warning { color: var(--danger); font-size: 10px; font-weight: bold; margin-top: 12px; text-transform: uppercase; letter-spacing: 1px; }
+    .item-card:hover .add-btn { background: var(--primary); box-shadow: 0 10px 20px rgba(0,242,255,0.3); }
 
-    /* СЕТКА ТОВАРОВ */
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 15px; margin-bottom: 40px; }
-    .card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 20px; padding: 20px; text-align: center; }
-    .card:hover { border-color: var(--accent); transform: translateY(-5px); background: rgba(255,255,255,0.05); }
-    .card h3 { margin: 0; font-size: 18px; color: #fff; }
-    .price { color: var(--accent); font-weight: 700; font-size: 22px; margin: 10px 0; }
-    .btn { width: 100%; padding: 10px; border: none; border-radius: 10px; background: var(--accent); color: #000; font-weight: 800; cursor: pointer; }
-
-    /* КОРЗИНА */
-    .cart { background: rgba(0,224,255,0.05); border: 1px solid var(--accent); border-radius: 20px; padding: 20px; display: none; }
-    .checkout { 
-      display: block; text-align: center; padding: 18px; background: #0088cc; color: #fff; 
-      text-decoration: none; border-radius: 12px; font-weight: bold; margin-top: 20px; font-size: 18px;
+    /* Плавающая корзина */
+    .cart-float {
+      position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+      width: 90%; max-width: 450px; background: rgba(10,10,15,0.95);
+      border: 1px solid var(--primary); border-radius: 25px; padding: 20px;
+      backdrop-filter: blur(15px); box-shadow: 0 -20px 40px rgba(0,0,0,0.5);
+      z-index: 999; display: none; animation: slideUp 0.5s ease;
+    }
+    @keyframes slideUp { from { bottom: -100px; } to { bottom: 30px; } }
+    
+    .checkout-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 20px; background: #0088cc; color: #fff;
+      text-decoration: none; border-radius: 18px; font-weight: 800; margin-top: 15px;
     }
 
-    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; z-index: 999; }
-    footer { text-align: center; padding: 40px; opacity: 0.2; font-size: 12px; }
+    @media (max-width: 600px) {
+      .products { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .item-card { padding: 20px 10px; }
+      .rb-val { font-size: 20px; }
+    }
   </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
 <div class="container">
   <header>
     <h1>WIKSXZ SHOP</h1>
-    <div id="rate" style="font-size: 12px; margin-top: 10px; color: var(--accent); opacity: 0.8;">ОБНОВЛЕНИЕ КУРСА...</div>
+    <div id="rate-badge" style="opacity:0.6; font-weight:bold; font-size:12px; margin-top:10px;">• SYNCING ECONOMY •</div>
   </header>
 
-  <div class="leaderboard">
-    <h2><i class="fas fa-users"></i> ТАБЛИЦА ПОКУПАТЕЛЕЙ</h2>
-    <div id="player-list">
-      <div style="text-align:center; opacity:0.3; padding: 10px;">Загрузка списка игроков...</div>
+  <section class="database-section">
+    <div class="search-wrapper">
+      <i class="fas fa-search search-icon"></i>
+      <input type="text" id="db-search" class="search-input" placeholder="Найти игрока по нику..." oninput="filterDatabase()">
     </div>
-  </div>
-
-  <div class="nick-verify">
-    <input type="text" id="nick" class="input-box" placeholder="Введи свой ник Roblox" oninput="validate()">
-    <div class="warning">⚠️ ОШИБКА В НИКЕ = РОБУКСЫ НЕ ПРИДУТ. Я НЕ НЕСУ ОТВЕТСТВЕННОСТЬ!</div>
-  </div>
-
-  <div class="grid">
-    <div class="card"><h3>40 R$</h3><div class="price">$0.49</div><button class="btn" onclick="buy(40, 0.49)">В КОРЗИНУ</button></div>
-    <div class="card"><h3>80 R$</h3><div class="price">$0.99</div><button class="btn" onclick="buy(80, 0.99)">В КОРЗИНУ</button></div>
-    <div class="card"><h3>400 R$</h3><div class="price">$4.99</div><button class="btn" onclick="buy(400, 4.99)">В КОРЗИНУ</button></div>
-    <div class="card"><h3>800 R$</h3><div class="price">$9.99</div><button class="btn" onclick="buy(800, 9.99)">В КОРЗИНУ</button></div>
-    <div class="card"><h3>1700 R$</h3><div class="price">$19.99</div><button class="btn" onclick="buy(1700, 19.99)">В КОРЗИНУ</button></div>
-  </div>
-
-  <div id="cart-box" class="cart">
-    <div id="items"></div>
-    <div style="text-align:right; margin-top:20px;">
-      <div style="font-size:12px; opacity:0.6;">ИТОГО К ОПЛАТЕ:</div>
-      <div id="total" style="font-family:'Orbitron'; font-size:32px; color:var(--premium);">0 СОМ</div>
-      <a href="#" id="tg-link" class="checkout">ОПЛАТИТЬ ЧЕРЕЗ TELEGRAM</a>
+    <div class="table-container" id="db-list">
+      <div style="text-align:center; opacity:0.3; padding:20px;">Загрузка базы данных...</div>
     </div>
+  </section>
+
+  <div class="order-box">
+    <input type="text" id="main-nick" class="main-input" placeholder="ВАШ НИК ROBLOX" oninput="handleInput()">
+    <p class="warning">⚠️ ПИШИ НИК ПРАВИЛЬНО ИЛИ РОБУКСЫ УЙДУТ ДРУГОМУ!</p>
   </div>
 
-  <footer>
-    © 2026 Wiksxz Shop <br>
-    <i class="fas fa-hammer" style="margin-top:20px; cursor:pointer;" onclick="tap()"></i>
+  <div class="products" id="catalog"></div>
+
+  <div id="cart-ui" class="cart-float">
+    <div id="cart-items"></div>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:15px; padding-top:15px; border-top:1px solid var(--border);">
+      <span style="font-weight:bold;">ИТОГО:</span>
+      <b id="total-kgs" style="font-size:26px; color:var(--primary);">0 сом</b>
+    </div>
+    <a href="#" id="pay-trigger" class="checkout-btn">ПОДТВЕРДИТЬ И ОПЛАТИТЬ</a>
+  </div>
+
+  <footer style="text-align:center; padding:60px; opacity:0.2;">
+    WIKSXZ SECURE SYSTEM 2.0 <br>
+    <span onclick="t(event)" style="cursor:default">•••••</span>
   </footer>
 </div>
 
-<div class="modal" id="admin-m">
-  <div style="background:#111; padding:30px; border-radius:20px; border:1px solid var(--accent); width:280px; text-align:center;">
-    <h3 style="color:var(--accent); font-family:'Orbitron';">ADMIN</h3>
-    <input type="text" id="al" placeholder="Логин" style="width:100%; padding:10px; margin-bottom:10px; background:#000; color:#fff; border:1px solid #333;">
-    <input type="password" id="ap" placeholder="Пароль" style="width:100%; padding:10px; margin-bottom:20px; background:#000; color:#fff; border:1px solid #333;">
-    <button class="btn" onclick="login()">ВХОД</button>
-  </div>
-</div>
-
 <script>
-  let cart = [];
-  let rate = 92.5;
-  let valid = false;
-  let clicks = 0;
-  const URL = 'https://docs.google.com/spreadsheets/d/1duBvq0ywgpBwM4sk2Er7bIpTYWkpQSj4fQ4FI_yrAP8/gviz/tq?tqx=out:csv';
+  // ЗАЩИТА ОТ ВЗЛОМА (БАЗОВАЯ)
+  document.addEventListener('keydown', e => {
+    if(e.ctrlKey && (e.key==='u' || e.key==='s' || e.key==='i' || e.key==='j') || e.key==='F12') e.preventDefault();
+  });
+  document.addEventListener('contextmenu', e => e.preventDefault());
 
-  async function init() {
+  let _C = [], _R = 92.5, _V = false, _D = [];
+  const P = [
+    {b:40, u:0.49}, {b:80, u:0.99}, {b:400, u:4.99}, {b:800, u:9.99}, {b:1700, u:19.99}
+  ];
+
+  async function boot() {
     try {
-      const r = await fetch('https://open.er-api.com/v6/latest/USD');
-      const d = await r.json();
-      rate = d.rates.KGS + 5;
-      document.getElementById('rate').innerText = `ТЕКУЩИЙ КУРС: ${rate.toFixed(2)} СОМ / $1`;
-
-      const res = await fetch(URL);
-      const csv = await res.text();
-      const rows = csv.split('\n').map(row => row.split(',').map(c => c.replace(/"/g,'')));
+      const res = await fetch('https://open.er-api.com/v6/latest/USD');
+      const d = await res.json();
+      _R = d.rates.KGS + 5;
+      document.getElementById('rate-badge').innerHTML = `<span style="color:var(--success)">●</span> КУРС: ${_R.toFixed(2)} сом`;
       
-      let stats = {};
-      rows.forEach(row => {
-        let name = row[0], rbx = parseInt(row[2]);
-        if(name && rbx) stats[name] = (stats[name] || 0) + rbx;
-      });
+      render();
+      syncDB();
+    } catch(e) { render(); }
+  }
 
-      const list = document.getElementById('player-list');
-      list.innerHTML = "";
-      Object.entries(stats).sort((a,b) => b[1]-a[1]).forEach(([n, v], i) => {
-        list.innerHTML += `<div class="leader-row">
-          <span>${i===0?'<i class="fas fa-crown crown"></i>':(i+1)+'.'} ${n}</span>
-          <b style="color:var(--success)">${v} R$</b>
-        </div>`;
-      });
+  function render() {
+    document.getElementById('catalog').innerHTML = P.map(x => `
+      <div class="item-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_black.svg" class="rb-logo">
+        <span class="rb-val">${x.b} R$</span>
+        <div class="price-group">
+          <span class="p-usd">$${x.u}</span>
+          <span class="p-kgs">${Math.ceil(x.u * _R)} сом</span>
+        </div>
+        <button class="add-btn" onclick="add(${x.b},${x.u})">Купить</button>
+      </div>
+    `).join('');
+  }
+
+  async function syncDB() {
+    try {
+      const res = await fetch('https://docs.google.com/spreadsheets/d/1duBvq0ywgpBwM4sk2Er7bIpTYWkpQSj4fQ4FI_yrAP8/gviz/tq?tqx=out:csv');
+      const csv = await res.text();
+      const rows = csv.split('\n').slice(1).map(r => r.split(',').map(c => c.replace(/"/g,'')));
+      let s = {};
+      rows.forEach(r => { if(r[0] && r[2]) s[r[0]] = (s[r[0]] || 0) + parseInt(r[2]); });
+      _D = Object.entries(s).sort((a,b) => b[1]-a[1]);
+      displayDB(_D);
     } catch(e) {}
   }
 
-  function validate() {
-    let n = document.getElementById('nick').value.trim();
-    valid = n.length >= 3;
+  function displayDB(data) {
+    const box = document.getElementById('db-list');
+    if(!data.length) { box.innerHTML = '<div style="text-align:center; opacity:0.3;">База пуста</div>'; return; }
+    box.innerHTML = data.map(([n,v], i) => `
+      <div class="player-row">
+        <span>${i===0?'<i class="fas fa-crown rank-gold"></i>':(i+1)+'.'} <b>${n}</b></span>
+        <span style="color:var(--primary)">${v} R$</span>
+      </div>
+    `).join('');
   }
 
-  function buy(rbx, usd) {
-    if(!valid) return alert("Сначала введи свой ник!");
-    cart.push({rbx, usd});
-    update();
+  function filterDatabase() {
+    const term = document.getElementById('db-search').value.toLowerCase();
+    const filtered = _D.filter(([n]) => n.toLowerCase().includes(term));
+    displayDB(filtered);
   }
 
-  function update() {
-    const box = document.getElementById('cart-box');
-    const items = document.getElementById('items');
-    box.style.display = cart.length ? "block" : "none";
+  function handleInput() {
+    _V = document.getElementById('main-nick').value.trim().length >= 3;
+  }
+
+  function add(b, u) {
+    if(!_V) { alert("Сначала введи свой ник Roblox!"); return; }
+    _C.push({b, u});
+    ui();
+  }
+
+  function ui() {
+    const box = document.getElementById('cart-ui');
+    const items = document.getElementById('cart-items');
+    box.style.display = _C.length ? 'block' : 'none';
     items.innerHTML = "";
-    let u = 0, r = 0;
-    cart.forEach((it, i) => {
-      u += it.usd; r += it.rbx;
-      items.innerHTML += `<div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.05);">
-        <span>${it.rbx} R$</span>
-        <span onclick="cart.splice(${i},1); update()" style="color:red; cursor:pointer;">&times; убрать</span>
+    let totalU = 0, totalR = 0;
+    _C.forEach((it, i) => {
+      totalU += it.u; totalR += it.b;
+      items.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:5px; font-size:14px;">
+        <span>${it.b} Robux</span>
+        <span onclick="_C.splice(${i},1); ui()" style="color:var(--danger); cursor:pointer;">&times;</span>
       </div>`;
     });
-    let s = Math.ceil(u * rate);
-    document.getElementById('total').innerText = s + " СОМ";
-    let msg = `💎 ЗАКАЗ\nНик: ${document.getElementById('nick').value}\nТовар: ${r} R$\nСумма: ${s} сом\n\nЯ подтверждаю, что ник верный.`;
-    document.getElementById('tg-link').href = `https://t.me/i_wiksxz0?text=${encodeURIComponent(msg)}`;
+    const finalSom = Math.ceil(totalU * _R);
+    document.getElementById('total-kgs').innerText = finalSom + " сом";
+    const ID = Math.floor(Math.random()*90000);
+    const msg = `💎 ПРЕМИУМ ЗАКАЗ #W-${ID}\n\n👤 ИГРОК: ${document.getElementById('main-nick').value}\n📦 ТОВАР: ${totalR} Robux\n💰 СУММА: ${finalSom} сом\n\nЯ подтверждаю правильность ника.`;
+    document.getElementById('pay-trigger').href = `https://t.me/i_wiksxz0?text=${encodeURIComponent(msg)}`;
   }
 
-  function tap() { clicks++; if(clicks >= 30) document.getElementById('admin-m').style.display="flex"; }
-  function login() {
-    if(document.getElementById('al').value === "Wiksxz" && document.getElementById('ap').value === "WiksxzShop") {
-      window.location.href = "https://docs.google.com/spreadsheets/d/1duBvq0ywgpBwM4sk2Er7bIpTYWkpQSj4fQ4FI_yrAP8/edit";
-    } else alert("Ошибка!");
-  }
+  let cc = 0;
+  function t(e) { cc++; if(cc>=30) { 
+    let p = prompt("ACCESS CODE:");
+    if(p === "WiksxzShop") window.location.href = "https://docs.google.com/spreadsheets/d/1duBvq0ywgpBwM4sk2Er7bIpTYWkpQSj4fQ4FI_yrAP8/edit";
+  }}
 
-  init();
+  boot();
 </script>
 </body>
 </html>
