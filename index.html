@@ -3,188 +3,139 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" />
-  <title>WIKSXZ STORE</title>
-  
+  <title>WIKSXZ STORE | SPACE EDITION</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;700;900&display=swap');
-
-    :root {
-      --bg: #030406;
-      --accent: #00e0ff;
-      --premium: #ffc200;
-      --danger: #ff4444;
-      --glass: rgba(255, 255, 255, 0.03);
-    }
-
+    
+    :root { --bg: #030406; --accent: #00e0ff; --premium: #ffc200; --danger: #ff4444; }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     
-    body {
-      margin: 0; background: var(--bg); color: #fff;
-      font-family: 'Inter', sans-serif; overflow-x: hidden;
+    body { margin: 0; background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+
+    /* ЖИВОЙ КОСМОС */
+    .space { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle at 50% 50%, #0a111a 0%, #030406 100%); }
+    .stars { 
+      position: absolute; width: 200%; height: 200%; 
+      background: url('https://www.transparenttextures.com/patterns/stardust.png'); 
+      animation: spaceFly 120s linear infinite; opacity: 0.4; 
     }
-
-    /* АНИМИРОВАННЫЙ ФОН */
-    .space-bg {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: radial-gradient(circle at 50% 50%, #0a111a 0%, #030406 100%);
-      z-index: -1;
-    }
-    .stars {
-      position: absolute; top: 0; left: 0; width: 200%; height: 200%;
-      background: url('https://www.transparenttextures.com/patterns/stardust.png');
-      animation: moveStars 150s linear infinite; opacity: 0.4;
-    }
-    @keyframes moveStars {
-      from { transform: translate(0, 0); }
-      to { transform: translate(-50%, -50%); }
-    }
-
-    .container { width: 100%; max-width: 600px; margin: 0 auto; padding: 20px 20px 280px 20px; position: relative; }
-
-    header { text-align: center; margin-bottom: 30px; }
-    header h1 { font-family: 'Orbitron'; font-size: 2.2rem; color: var(--accent); text-shadow: 0 0 15px rgba(0,224,255,0.4); }
-
-    .tabs { display: flex; gap: 8px; margin-bottom: 25px; }
-    .tab-btn { flex: 1; padding: 12px; background: var(--glass); border: 1px solid rgba(255,255,255,0.05); color: #888; border-radius: 10px; cursor: pointer; font-weight: 900; font-size: 11px; text-transform: uppercase; }
-    .tab-btn.active { background: var(--accent); color: #000; box-shadow: 0 0 15px rgba(0,224,255,0.3); }
-
-    .content { display: none; animation: fadeIn 0.4s ease; }
-    .content.active { display: block; }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-    .nick-box { margin-bottom: 25px; }
-    .nick-input { width: 100%; padding: 18px; border-radius: 15px; border: 2px solid rgba(255,255,255,0.1); background: #000; color: #fff; font-size: 18px; text-align: center; font-weight: 900; outline: none; }
-    .nick-input:focus { border-color: var(--accent); }
+    @keyframes spaceFly { from { transform: translate(0,0); } to { transform: translate(-25%, -25%); } }
     
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 18px; padding: 20px 10px; text-align: center; backdrop-filter: blur(5px); }
-    .rb-count { display: block; font-size: 22px; font-weight: 900; margin: 10px 0; font-family: 'Orbitron'; color: #fff; }
-    .price-tag { background: rgba(0,0,0,0.5); padding: 8px; border-radius: 10px; margin-bottom: 12px; }
-    .p-kgs { display: block; font-size: 17px; color: #00ffa3; font-weight: 900; }
-    .buy-btn { width: 100%; padding: 10px; border: none; border-radius: 8px; background: #fff; color: #000; font-weight: 900; cursor: pointer; }
-
-    /* КОРЗИНА */
-    .cart-float {
-      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-      width: 92%; max-width: 500px; background: rgba(10, 11, 16, 0.98); border: 2px solid var(--accent);
-      padding: 20px; border-radius: 25px; backdrop-filter: blur(20px); display: none; z-index: 2000;
-      box-shadow: 0 -10px 50px rgba(0,0,0,1);
+    .twinkle {
+      position: absolute; width: 100%; height: 100%;
+      background: transparent; animation: blink 4s ease-in-out infinite;
+      box-shadow: inset 0 0 100px rgba(0,224,255,0.05);
     }
-    .total-line { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; }
-    .total-sum { color: var(--accent); font-weight: 900; font-size: 24px; }
-    .total-rb { color: var(--premium); font-size: 14px; font-family: 'Orbitron'; }
+    @keyframes blink { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.7; } }
 
-    .cart-actions { display: grid; grid-template-columns: 1fr 2fr; gap: 12px; margin-top: 20px; }
-    .cancel-btn { padding: 15px; background: #1a1a1a; color: var(--danger); border: 1px solid var(--danger); border-radius: 12px; font-weight: 900; cursor: pointer; text-align: center; }
-    .pay-btn { padding: 15px; background: var(--accent); color: #000; border-radius: 12px; font-weight: 900; text-decoration: none; text-align: center; text-transform: uppercase; }
+    .container { width: 100%; max-width: 600px; margin: 0 auto; padding: 20px 20px 320px 20px; }
+    header h1 { text-align: center; font-family: 'Orbitron'; font-size: 2.2rem; color: var(--accent); text-shadow: 0 0 20px rgba(0,224,255,0.5); margin-bottom: 25px; }
 
-    footer { text-align: center; padding: 40px; font-size: 10px; opacity: 0.4; }
+    .tabs { display: flex; gap: 10px; margin-bottom: 25px; }
+    .tab-btn { flex: 1; padding: 14px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #888; border-radius: 12px; cursor: pointer; font-weight: 900; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+    .tab-btn.active { background: var(--accent); color: #000; box-shadow: 0 0 15px var(--accent); }
+
+    .content { display: none; }
+    .content.active { display: block; animation: fadeIn 0.5s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .nick-input { width: 100%; padding: 18px; border-radius: 15px; border: 2px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.6); color: #fff; text-align: center; font-weight: 900; font-size: 18px; outline: none; margin-bottom: 25px; backdrop-filter: blur(10px); }
+    .nick-input:focus { border-color: var(--accent); }
+
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 22px; padding: 25px 15px; text-align: center; backdrop-filter: blur(15px); transition: 0.3s; }
+    .card:hover { transform: scale(1.03); border-color: var(--accent); }
+    .rb-val { display: block; font-size: 24px; font-weight: 900; font-family: 'Orbitron'; margin-bottom: 12px; }
+    .price-kgs { color: #00ffa3; font-weight: 900; background: rgba(0,255,163,0.1); padding: 8px; border-radius: 10px; margin-bottom: 15px; }
+    .buy-btn { width: 100%; padding: 12px; border-radius: 10px; border: none; font-weight: 900; cursor: pointer; background: #fff; color: #000; text-transform: uppercase; font-size: 11px; }
+
+    .player-row { display: flex; justify-content: space-between; padding: 16px; background: rgba(255,255,255,0.03); margin-bottom: 10px; border-radius: 15px; border-left: 4px solid var(--accent); backdrop-filter: blur(5px); }
+
+    /* КОРЗИНА 3.0 */
+    .cart { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 94%; max-width: 550px; background: rgba(8,10,15,0.98); border: 2px solid var(--accent); border-radius: 30px; padding: 25px; display: none; z-index: 1000; box-shadow: 0 0 60px #000; backdrop-filter: blur(25px); }
+    .cart-info { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
+    .total-kgs { font-size: 32px; font-weight: 900; color: #fff; line-height: 1; }
+    .total-rb { color: var(--premium); font-family: 'Orbitron'; font-size: 18px; margin-left: 8px; }
+    .total-usd { font-size: 13px; opacity: 0.5; font-weight: 700; margin-top: 5px; }
+    .actions { display: grid; grid-template-columns: 1fr 2.5fr; gap: 15px; margin-top: 20px; }
+    .c-btn { padding: 18px; border-radius: 16px; border: none; font-weight: 900; cursor: pointer; text-align: center; text-decoration: none; font-size: 14px; text-transform: uppercase; }
   </style>
 </head>
 <body>
 
-<div class="space-bg"><div class="stars"></div></div>
+<div class="space"><div class="stars"></div><div class="twinkle"></div></div>
 
 <div class="container">
   <header><h1>WIKSXZ SHOP</h1></header>
-
+  
   <div class="tabs">
     <button class="tab-btn active" onclick="tab(event, 'shop')">МАГАЗИН</button>
     <button class="tab-btn" onclick="tab(event, 'list')">ЛИДЕРЫ</button>
   </div>
 
   <div id="shop" class="content active">
-    <div class="nick-box">
-      <input type="text" id="unick" class="nick-input" placeholder="НИК ROBLOX">
-    </div>
+    <input type="text" id="unick" class="nick-input" placeholder="НИК ROBLOX">
     <div class="grid" id="items"></div>
   </div>
 
   <div id="list" class="content">
-    <div id="table-box" style="background: var(--glass); border-radius: 15px; padding: 10px;">
-        Загрузка данных...
-    </div>
+    <div id="table-box">Загрузка данных...</div>
   </div>
-
-  <footer>WIKSXZ SHOP © 2026</footer>
 </div>
 
-<div id="cart" class="cart-float">
-  <div style="font-size: 12px; opacity: 0.6; margin-bottom: 10px;">USD: <span id="st-usd"></span> | Налог: 5 сом</div>
-  <div class="total-line">
-    <div style="display:flex; flex-direction:column;">
-      <span class="total-sum" id="total">0 СОМ</span>
+<div id="cart" class="cart">
+  <div id="cart-items" style="font-size:11px; color:var(--accent); font-weight: 900; margin-bottom:15px; text-transform:uppercase; letter-spacing:1px;"></div>
+  
+  <div class="cart-info">
+    <div>
+      <div style="font-size:10px; opacity:0.5; text-transform:uppercase; margin-bottom:5px;">Итого к оплате:</div>
+      <span class="total-kgs" id="total">0 СОМ</span>
       <span class="total-rb" id="st-rb">0 R$</span>
+      <div class="total-usd" id="st-usd">$0.00</div>
     </div>
-    <span style="font-size: 10px; text-align: right; opacity: 0.5;">НАЖМИТЕ КУПИТЬ ДЛЯ<br>ПЕРЕХОДА В ТГ</span>
+    <div style="text-align:right;">
+      <span style="background:var(--accent); color:#000; font-size:9px; font-weight:900; padding:4px 8px; border-radius:6px;">+5 СОМ СБОР</span>
+    </div>
   </div>
-  <div class="cart-actions">
-    <div class="cancel-btn" onclick="clearCart()">ОТМЕНА</div>
-    <a href="#" id="tg-send" class="pay-btn" onclick="return sendOrder()">КУПИТЬ</a>
+
+  <div class="actions">
+    <button class="c-btn" style="background:#1a1a1a; color:var(--danger)" onclick="clearCart()">ОТМЕНА</button>
+    <a href="#" id="tg-send" class="c-btn" style="background:var(--accent); color:#000" onclick="return sendOrder()">ПОДТВЕРДИТЬ</a>
   </div>
 </div>
 
 <script>
-  let cart = [], rate = 92.43, players = [];
+  // ССЫЛКА НА ТВОЙ ФАЙЛ. Просто замени 'username/repo' на свои данные!
+  const DATA_URL = 'data.json'; 
+
+  let cart = [], rate = 95, players = [];
   const products = [{rb:40,u:0.49},{rb:80,u:0.99},{rb:400,u:4.99},{rb:800,u:9.99},{rb:1700,u:19.99}];
 
-  async function init() {
+  async function loadData() {
     try {
-      const r = await fetch('https://open.er-api.com/v6/latest/USD');
-      const d = await r.json();
-      rate = d.rates.KGS + 5;
-      renderShop();
-      loadDB();
-    } catch(e) { renderShop(); }
+      // Кэш-бастинг, чтобы данные обновлялись сразу
+      const response = await fetch(DATA_URL + '?t=' + Date.now());
+      const data = await response.json();
+      players = Object.entries(data).sort((a,b) => b[1]-a[1]);
+      renderTable();
+    } catch (e) {
+      document.getElementById('table-box').innerHTML = "<div style='opacity:0.5; text-align:center;'>Создайте файл data.json в репозитории</div>";
+    }
+  }
+
+  function renderTable() {
+    const box = document.getElementById('table-box');
+    if (!players.length) return;
+    box.innerHTML = players.map(([n,v]) => `<div class="player-row"><span>${n}</span><b style="color:var(--premium)">${v} R$</b></div>`).join('');
   }
 
   function renderShop() {
     document.getElementById('items').innerHTML = products.map(p => `
       <div class="card">
-        <span class="rb-count">${p.rb} R$</span>
-        <div class="price-tag"><span class="p-kgs">${Math.ceil(p.u * rate)} СОМ</span></div>
+        <span class="rb-val">${p.rb} R$</span>
+        <div class="price-kgs">${Math.ceil(p.u * rate)} СОМ</div>
         <button class="buy-btn" onclick="buy(${p.rb}, ${p.u})">В КОРЗИНУ</button>
-      </div>
-    `).join('');
-  }
-
-  // НОВЫЙ МЕТОД ЗАГРУЗКИ ТАБЛИЦЫ
-  async function loadDB() {
-    try {
-      const id = '1duBvq0ywgpBwM4sk2Er7bIpTYWkpQSj4fQ4FI_yrAP8'; 
-      // Запрос именно CSV формата опубликованной таблицы
-      const res = await fetch(`https://docs.google.com/spreadsheets/d/${id}/export?format=csv`);
-      const text = await res.text();
-      
-      const rows = text.split('\n').slice(0); // Берем всё
-      let s = {};
-
-      rows.forEach(row => {
-        const cols = row.split(',');
-        const name = cols[0]?.replace(/"/g, '').trim();
-        const amount = parseInt(cols[2]?.replace(/"/g, '').trim());
-
-        if (name && !isNaN(amount)) {
-          s[name] = (s[name] || 0) + amount;
-        }
-      });
-
-      players = Object.entries(s).sort((a, b) => b[1] - a[1]);
-      renderTable(players);
-    } catch (e) {
-      document.getElementById('table-box').innerHTML = "Ошибка доступа. Проверьте публикацию в интернете!";
-    }
-  }
-
-  function renderTable(data) {
-    if(data.length === 0) {
-        document.getElementById('table-box').innerHTML = "Таблица пока пуста";
-        return;
-    }
-    document.getElementById('table-box').innerHTML = data.map(([n,v]) => `
-      <div style="display:flex; justify-content:space-between; padding:12px; border-bottom:1px solid rgba(255,255,255,0.05);">
-        <span>${n}</span><b style="color:var(--premium)">${v} R$</b>
       </div>
     `).join('');
   }
@@ -197,8 +148,7 @@
   }
 
   function buy(rb, u) {
-    let n = document.getElementById('unick').value.trim();
-    if(n.length < 3) return alert("Введите ник Roblox!");
+    if(document.getElementById('unick').value.trim().length < 3) return alert("Введите ник!");
     cart.push({rb, u});
     updateCart();
   }
@@ -212,21 +162,23 @@
     cart.forEach(c => { tu += c.u; tr += c.rb; });
     const kgs = Math.ceil(tu * rate) + 5;
     document.getElementById('st-rb').innerText = tr + " R$";
-    document.getElementById('st-usd').innerText = "$" + tu.toFixed(2);
+    document.getElementById('st-usd').innerText = "В долларах: $" + tu.toFixed(2);
     document.getElementById('total').innerText = kgs + " СОМ";
+    document.getElementById('cart-items').innerText = "СОСТАВ: " + cart.map(c => c.rb + "R").join(" + ");
   }
 
   function sendOrder() {
     const nick = document.getElementById('unick').value;
     let tr = 0, tu = 0;
-    cart.forEach(c => { tr += c.rb; tu += c.u; });
+    cart.forEach(c => { tu += c.u; tr += c.rb; });
     const kgs = Math.ceil(tu * rate) + 5;
-    const msg = `💎 НОВЫЙ ЗАКАЗ\n👤 НИК: ${nick}\n📦 ТОВАР: ${tr} Robux\n💰 ИТОГО: ${kgs} сом\n\n⚠️ С ПРАВИЛАМИ ОЗНАКОМЛЕН.`;
+    const msg = `💎 НОВЫЙ ЗАКАЗ\n👤 НИК: ${nick}\n📦 ТОВАР: ${tr} Robux\n💵 СУММА: $${tu.toFixed(2)}\n💰 К ОПЛАТЕ: ${kgs} СОМ\n\n⚠️ НИК ПРОВЕРЕН, ПРЕТЕНЗИЙ НЕТ.`;
     window.open("https://t.me/i_wiksxz0?text=" + encodeURIComponent(msg));
     return false;
   }
 
-  init();
+  renderShop();
+  loadData();
 </script>
 </body>
 </html>
