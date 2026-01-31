@@ -2,8 +2,8 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
-  <title>Wiksxz Store | Robux Kyrgyzstan</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" />
+  <title>Wiksxz Store | Premium</title>
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
@@ -24,91 +24,95 @@
       user-select: none; -webkit-user-select: none;
     }
 
-    .container { width: 100%; max-width: 600px; margin: 0 auto; padding: 20px; }
+    .container { width: 100%; max-width: 600px; margin: 0 auto; padding: 20px 20px 150px 20px; } /* Отступ снизу, чтобы корзина не мешала */
 
-    header { text-align: center; margin-bottom: 30px; }
-    header h1 { font-family: 'Orbitron'; font-size: 2.2rem; margin: 0; letter-spacing: 2px; color: #fff; }
+    header { text-align: center; margin-bottom: 20px; }
+    header h1 { font-family: 'Orbitron'; font-size: 2rem; margin: 0; color: #fff; }
+
+    /* Поисковик (всегда вверху) */
+    .search-section { margin-bottom: 20px; }
+    .search-input {
+      width: 100%; padding: 15px 45px; border-radius: 12px; border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03); color: #fff; font-size: 14px; outline: none;
+    }
+    .search-box { position: relative; }
+    .search-box i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--accent); }
 
     /* Вкладки */
-    .tabs { display: flex; gap: 10px; margin-bottom: 25px; }
+    .tabs { display: flex; gap: 8px; margin-bottom: 20px; position: sticky; top: 10px; z-index: 50; background: var(--bg); padding: 5px 0; }
     .tab-btn {
-      flex: 1; padding: 12px; background: var(--card); border: 1px solid var(--border);
-      color: #fff; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 13px;
+      flex: 1; padding: 10px; background: var(--card); border: 1px solid var(--border);
+      color: #fff; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 11px; text-transform: uppercase;
     }
     .tab-btn.active { background: var(--accent); color: #000; border-color: var(--accent); }
 
     .content { display: none; animation: fadeIn 0.3s ease; }
     .content.active { display: block; }
-
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
     /* Ник */
-    .nick-section { margin-bottom: 25px; text-align: center; }
     .nick-input {
       width: 100%; padding: 18px; border-radius: 15px; border: 2px solid var(--border);
-      background: #000; color: #fff; font-size: 18px; text-align: center; font-weight: 900; outline: none;
+      background: #000; color: #fff; font-size: 18px; text-align: center; font-weight: 900; outline: none; margin-bottom: 20px;
     }
-    .nick-input:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(0,224,255,0.2); }
-    .warn { color: #ff4444; font-size: 10px; font-weight: 900; margin-top: 10px; text-transform: uppercase; }
+    .nick-input:focus { border-color: var(--accent); }
 
     /* Сетка товаров */
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-    .card {
-      background: var(--card); border: 1px solid var(--border); border-radius: 20px;
-      padding: 20px 10px; text-align: center; position: relative;
-    }
-    .card:active { transform: scale(0.95); }
-    .rb-icon { width: 40px; margin-bottom: 10px; }
-    .rb-amount { display: block; font-size: 22px; font-weight: 900; margin-bottom: 10px; }
-    .price-tag { background: rgba(0,0,0,0.3); border-radius: 10px; padding: 8px; margin-bottom: 12px; }
-    .p-kgs { display: block; font-size: 18px; color: #00ffa3; font-weight: 900; }
-    .p-usd { display: block; font-size: 12px; opacity: 0.5; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 15px; text-align: center; }
+    .rb-icon { width: 35px; margin-bottom: 8px; filter: drop-shadow(0 0 5px var(--premium)); }
+    .rb-amount { display: block; font-size: 20px; font-weight: 900; margin-bottom: 8px; }
+    .price-tag { background: rgba(0,0,0,0.3); border-radius: 10px; padding: 5px; margin-bottom: 10px; }
+    .p-kgs { display: block; font-size: 16px; color: #00ffa3; font-weight: 900; }
+    .p-usd { display: block; font-size: 11px; opacity: 0.5; }
     
-    .buy-btn {
-      width: 100%; padding: 12px; border: none; border-radius: 10px;
-      background: #fff; color: #000; font-weight: 900; cursor: pointer; text-transform: uppercase;
-    }
+    .buy-btn { width: 100%; padding: 10px; border: none; border-radius: 10px; background: #fff; color: #000; font-weight: 900; cursor: pointer; font-size: 11px; }
 
-    /* Корзина */
+    /* Корзина (Исправлено наложение) */
     .cart-panel {
-      position: fixed; bottom: 0; left: 0; right: 0; background: #111;
-      border-top: 2px solid var(--accent); padding: 20px; border-radius: 20px 20px 0 0;
-      display: none; z-index: 100;
+      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+      width: 90%; max-width: 500px; background: rgba(13, 14, 18, 0.95);
+      border: 1px solid var(--accent); padding: 15px; border-radius: 20px;
+      backdrop-filter: blur(10px); display: none; z-index: 1000;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
     }
     .pay-btn {
-      display: flex; align-items: center; justify-content: center; gap: 10px;
-      width: 100%; padding: 18px; background: #0088cc; color: #fff;
-      text-decoration: none; border-radius: 15px; font-weight: 900; font-size: 18px;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; padding: 15px; background: #0088cc; color: #fff;
+      text-decoration: none; border-radius: 12px; font-weight: 900; font-size: 16px;
     }
 
     /* Таблица */
     .table-row {
       display: flex; justify-content: space-between; padding: 12px;
-      background: rgba(255,255,255,0.02); margin-bottom: 5px; border-radius: 10px;
+      background: rgba(255,255,255,0.02); margin-bottom: 5px; border-radius: 10px; font-size: 14px;
     }
 
-    footer { text-align: center; padding: 40px; opacity: 0.1; font-size: 10px; }
+    footer { text-align: center; padding: 20px; opacity: 0.3; font-size: 10px; line-height: 1.5; }
   </style>
 </head>
 <body>
 
 <div class="container">
   <header>
-    <h1>WIKSXZ SHOP</h1>
-    <div id="rate-now" style="color: var(--accent); font-size: 11px; margin-top: 5px;">КУРС: ЗАГРУЗКА...</div>
+    <h1>WIKSXZ STORE</h1>
   </header>
 
+  <div class="search-section">
+    <div class="search-box">
+      <i class="fas fa-search"></i>
+      <input type="text" id="global-search" class="search-input" placeholder="Найти игрока по нику..." oninput="searchPlayer()">
+    </div>
+  </div>
+
   <div class="tabs">
-    <button class="tab-btn active" onclick="openTab(event, 'shop')">МАГАЗИН</button>
-    <button class="tab-btn" onclick="openTab(event, 'top')">ТОП ИГРОКОВ</button>
-    <button class="tab-btn" onclick="openTab(event, 'info')">ИНФО</button>
+    <button class="tab-btn active" onclick="openTab(event, 'shop')">Магазин</button>
+    <button class="tab-btn" onclick="openTab(event, 'top')">Таблица</button>
+    <button class="tab-btn" onclick="openTab(event, 'info')">О нас</button>
   </div>
 
   <div id="shop" class="content active">
-    <div class="nick-section">
-      <input type="text" id="player-nick" class="nick-input" placeholder="НИК ROBLOX" oninput="checkNick()">
-      <div class="warn">⚠️ ОШИБКА В НИКЕ = ПОТЕРЯ РОБУКСОВ!</div>
-    </div>
+    <input type="text" id="player-nick" class="nick-input" placeholder="НИК ROBLOX" oninput="checkNick()">
     <div class="grid" id="catalog"></div>
   </div>
 
@@ -117,33 +121,33 @@
   </div>
 
   <div id="info" class="content">
-    <div style="background: var(--card); padding: 20px; border-radius: 20px; line-height: 1.6;">
-      <h3>Как купить?</h3>
-      <p>1. Введите свой точный ник.<br>2. Выберите количество робуксов.<br>3. Оплатите в Telegram.</p>
-      <hr style="border: 0; border-top: 1px solid var(--border);">
-      <p style="color: #ff4444; font-weight: bold;">Возврат средств невозможен после отправки робуксов!</p>
+    <div style="background: var(--card); padding: 20px; border-radius: 20px; font-size: 14px;">
+      <h3 style="color:var(--accent)">Wiksxz Store</h3>
+      <p>Лучший сервис по продаже Робуксов в Кыргызстане. Моментальная доставка и лучшие цены.</p>
+      <p>Все транзакции защищены. Работаем 24/7 для вашего комфорта.</p>
     </div>
   </div>
 
-  <footer onclick="taps++">
-    © 2026 WIKSXZ STORE <br>
-    <span style="cursor: pointer" onclick="if(taps>25) window.location.href='https://docs.google.com/spreadsheets/d/1duBvq0ywgpBwM4sk2Er7bIpTYWkpQSj4fQ4FI_yrAP8/edit'">•••••</span>
+  <footer>
+    СДЕЛАННО ИИ <br> 
+    ЗАЩИЩЕНО ПРАВАМИ WIKSXZ SHOP © 2026 <br>
+    ВСЕ ПРАВА ЗАРЕЗЕРВИРОВАНЫ
   </footer>
 </div>
 
 <div id="cart-box" class="cart-panel">
-  <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
-    <span style="opacity: 0.6;">К ОПЛАТЕ:</span>
-    <b id="total-price" style="color: var(--accent); font-size: 20px;">0 сом</b>
+  <div id="cart-items" style="max-height: 80px; overflow-y: auto; margin-bottom: 10px; font-size: 12px; opacity: 0.7;"></div>
+  <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+    <span>ИТОГО:</span>
+    <b id="total-price" style="color: var(--accent);">0 сом</b>
   </div>
-  <a href="#" id="tg-link" class="pay-btn"><i class="fab fa-telegram-plane"></i> К ОПЛАТЕ</a>
+  <a href="#" id="tg-link" class="pay-btn">ПОДТВЕРДИТЬ И ОПЛАТИТЬ</a>
 </div>
 
 <script>
   let cart = [];
   let rate = 92.5;
-  let hasNick = false;
-  let taps = 0;
+  let allPlayers = [];
   const items = [
     {rb: 40, usd: 0.49}, {rb: 80, usd: 0.99}, {rb: 400, usd: 4.99}, {rb: 800, usd: 9.99}, {rb: 1700, usd: 19.99}
   ];
@@ -153,15 +157,13 @@
       const r = await fetch('https://open.er-api.com/v6/latest/USD');
       const d = await r.json();
       rate = d.rates.KGS + 5;
-      document.getElementById('rate-now').innerText = `КУРС: ${rate.toFixed(2)} СОМ`;
-      
       renderShop();
-      renderTop();
+      loadData();
     } catch(e) { renderShop(); }
   }
 
   function renderShop() {
-    const html = items.map(i => `
+    document.getElementById('catalog').innerHTML = items.map(i => `
       <div class="card">
         <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_black.svg" class="rb-icon" style="filter: invert(1);">
         <span class="rb-amount">${i.rb} R$</span>
@@ -172,59 +174,61 @@
         <button class="buy-btn" onclick="add(${i.rb}, ${i.usd})">В КОРЗИНУ</button>
       </div>
     `).join('');
-    document.getElementById('catalog').innerHTML = html;
   }
 
-  async function renderTop() {
+  async function loadData() {
     try {
       const res = await fetch('https://docs.google.com/spreadsheets/d/1duBvq0ywgpBwM4sk2Er7bIpTYWkpQSj4fQ4FI_yrAP8/gviz/tq?tqx=out:csv');
       const text = await res.text();
       const rows = text.split('\n').slice(1).map(r => r.split(',').map(c => c.replace(/"/g,'')));
       let s = {};
       rows.forEach(r => { if(r[0] && r[2]) s[r[0]] = (s[r[0]] || 0) + parseInt(r[2]); });
-      
-      const list = document.getElementById('player-table');
-      list.innerHTML = Object.entries(s).sort((a,b) => b[1]-a[1]).map(([n, v], i) => `
-        <div class="table-row">
-          <span>${i+1}. ${n}</span>
-          <b style="color:var(--accent)">${v} R$</b>
-        </div>
-      `).join('');
+      allPlayers = Object.entries(s).sort((a,b) => b[1]-a[1]);
+      renderTable(allPlayers);
     } catch(e) {}
+  }
+
+  function renderTable(data) {
+    document.getElementById('player-table').innerHTML = data.map(([n, v]) => `
+      <div class="table-row"><span>${n}</span><b>${v} R$</b></div>
+    `).join('');
+  }
+
+  function searchPlayer() {
+    const val = document.getElementById('global-search').value.toLowerCase();
+    const filtered = allPlayers.filter(p => p[0].toLowerCase().includes(val));
+    renderTable(filtered);
+    if(val !== "") openTab(null, 'top'); // Автопереключение на вкладку таблицы при поиске
   }
 
   function openTab(e, id) {
     document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.getElementById(id).classList.add('active');
-    e.currentTarget.classList.add('active');
-  }
-
-  function checkNick() {
-    hasNick = document.getElementById('player-nick').value.trim().length >= 3;
+    if(e) e.currentTarget.classList.add('active');
+    else document.querySelector(`[onclick*="${id}"]`).classList.add('active');
   }
 
   function add(rb, usd) {
-    if(!hasNick) return alert("СНАЧАЛА ВВЕДИ НИК!");
+    let nick = document.getElementById('player-nick').value.trim();
+    if(nick.length < 3) return alert("СНАЧАЛА ВВЕДИ НИК!");
     cart.push({rb, usd});
     updateCart();
   }
 
   function updateCart() {
     const box = document.getElementById('cart-box');
+    const itemsDiv = document.getElementById('cart-items');
     box.style.display = cart.length ? 'block' : 'none';
     
     let sumU = 0, sumR = 0;
+    itemsDiv.innerHTML = cart.map(c => `${c.rb} Robux`).join(', ');
     cart.forEach(c => { sumU += c.usd; sumR += c.rb; });
     
     const kgs = Math.ceil(sumU * rate);
-    document.getElementById('total-price').innerText = kgs + " СОМ";
+    document.getElementById('total-price').innerText = kgs + " сом";
     
-    const id = Math.floor(1000 + Math.random() * 9000);
-    const nick = document.getElementById('player-nick').value;
-    
-    // ПРЯМАЯ ССЫЛКА В ТЕЛЕГРАМ (ФИКС)
-    const text = `💎 ЗАКАЗ #W-${id}\n\n👤 НИК: ${nick}\n📦 ТОВАР: ${sumR} Robux\n💰 ИТОГО: ${kgs} сом\n\n⚠️ Ник указан верно, с правилами согласен.`;
+    const text = `💎 ЗАКАЗ #W-${Math.floor(Math.random()*9000)}\n👤 НИК: ${document.getElementById('player-nick').value}\n📦 ТОВАР: ${sumR} Robux\n💰 ИТОГО: ${kgs} сом`;
     document.getElementById('tg-link').href = "https://t.me/i_wiksxz0?text=" + encodeURIComponent(text);
   }
 
