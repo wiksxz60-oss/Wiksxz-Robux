@@ -3,116 +3,142 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" />
-  <title>Wiksxz Store | Premium</title>
+  <title>WIKSXZ PREMIUM | Лучший в КР</title>
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;700;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Plus+Jakarta+Sans:wght@400;700;800&display=swap');
 
     :root {
-      --bg: #0d0e12;
+      --bg: #050608;
       --accent: #00e0ff;
       --premium: #ffc200;
-      --card: rgba(255, 255, 255, 0.05);
-      --border: rgba(255, 255, 255, 0.1);
+      --card-bg: rgba(255, 255, 255, 0.03);
+      --border: rgba(255, 255, 255, 0.08);
+      --gradient: linear-gradient(135deg, #00e0ff 0%, #7000ff 100%);
     }
 
-    * { box-sizing: border-box; transition: 0.2s; -webkit-tap-highlight-color: transparent; }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    
     body {
-      margin: 0; background: var(--bg); color: #fff; font-family: 'Inter', sans-serif;
-      background-image: radial-gradient(circle at top right, rgba(0, 224, 255, 0.05), transparent);
-      user-select: none; -webkit-user-select: none;
+      margin: 0; background: var(--bg); color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+      background-image: radial-gradient(circle at 50% -20%, rgba(0, 224, 255, 0.15), transparent 70%);
+      user-select: none;
     }
 
-    .container { width: 100%; max-width: 600px; margin: 0 auto; padding: 20px 20px 150px 20px; } /* Отступ снизу, чтобы корзина не мешала */
+    .container { width: 100%; max-width: 600px; margin: 0 auto; padding: 20px 20px 160px 20px; }
 
-    header { text-align: center; margin-bottom: 20px; }
-    header h1 { font-family: 'Orbitron'; font-size: 2rem; margin: 0; color: #fff; }
+    /* Анимации появления */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); filter: blur(10px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
 
-    /* Поисковик (всегда вверху) */
-    .search-section { margin-bottom: 20px; }
+    .anim { animation: fadeInUp 0.6s cubic-bezier(0.2, 1, 0.3, 1) forwards; opacity: 0; }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+
+    header { text-align: center; margin-bottom: 30px; }
+    header h1 { font-family: 'Orbitron'; font-size: 2.5rem; margin: 0; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 15px rgba(0,224,255,0.3)); }
+
+    /* Поиск */
+    .search-box { position: relative; margin-bottom: 25px; }
     .search-input {
-      width: 100%; padding: 15px 45px; border-radius: 12px; border: 1px solid var(--border);
-      background: rgba(255,255,255,0.03); color: #fff; font-size: 14px; outline: none;
+      width: 100%; padding: 18px 50px; border-radius: 20px; border: 1px solid var(--border);
+      background: rgba(255,255,255,0.02); color: #fff; font-size: 15px; outline: none; backdrop-filter: blur(10px);
     }
-    .search-box { position: relative; }
-    .search-box i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--accent); }
+    .search-input:focus { border-color: var(--accent); box-shadow: 0 0 20px rgba(0,224,255,0.1); }
+    .search-box i { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--accent); }
 
     /* Вкладки */
-    .tabs { display: flex; gap: 8px; margin-bottom: 20px; position: sticky; top: 10px; z-index: 50; background: var(--bg); padding: 5px 0; }
+    .tabs { display: flex; gap: 10px; margin-bottom: 25px; position: sticky; top: 15px; z-index: 100; backdrop-filter: blur(15px); padding: 5px; border-radius: 15px; background: rgba(13, 14, 18, 0.8); }
     .tab-btn {
-      flex: 1; padding: 10px; background: var(--card); border: 1px solid var(--border);
-      color: #fff; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 11px; text-transform: uppercase;
+      flex: 1; padding: 12px; background: transparent; border: 1px solid transparent;
+      color: #888; border-radius: 12px; cursor: pointer; font-weight: 800; font-size: 11px; text-transform: uppercase;
     }
-    .tab-btn.active { background: var(--accent); color: #000; border-color: var(--accent); }
+    .tab-btn.active { background: rgba(0, 224, 255, 0.1); color: var(--accent); border-color: rgba(0, 224, 255, 0.2); }
 
-    .content { display: none; animation: fadeIn 0.3s ease; }
+    .content { display: none; }
     .content.active { display: block; }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
     /* Ник */
     .nick-input {
-      width: 100%; padding: 18px; border-radius: 15px; border: 2px solid var(--border);
-      background: #000; color: #fff; font-size: 18px; text-align: center; font-weight: 900; outline: none; margin-bottom: 20px;
+      width: 100%; padding: 22px; border-radius: 20px; border: 2px solid var(--border);
+      background: #000; color: #fff; font-size: 20px; text-align: center; font-weight: 900; outline: none; margin-bottom: 25px;
     }
-    .nick-input:focus { border-color: var(--accent); }
+    .nick-input:focus { border-color: var(--accent); transform: scale(1.02); }
 
-    /* Сетка товаров */
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 15px; text-align: center; }
-    .rb-icon { width: 35px; margin-bottom: 8px; filter: drop-shadow(0 0 5px var(--premium)); }
-    .rb-amount { display: block; font-size: 20px; font-weight: 900; margin-bottom: 8px; }
-    .price-tag { background: rgba(0,0,0,0.3); border-radius: 10px; padding: 5px; margin-bottom: 10px; }
-    .p-kgs { display: block; font-size: 16px; color: #00ffa3; font-weight: 900; }
-    .p-usd { display: block; font-size: 11px; opacity: 0.5; }
+    /* Карточки товаров */
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .card { 
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: 25px; 
+      padding: 25px 15px; text-align: center; position: relative;
+    }
+    .card:hover { border-color: var(--accent); background: rgba(0, 224, 255, 0.03); }
+    .rb-icon { font-size: 35px; color: var(--premium); margin-bottom: 12px; filter: drop-shadow(0 0 10px rgba(255,188,0,0.3)); }
+    .rb-amount { display: block; font-size: 24px; font-weight: 900; margin-bottom: 15px; font-family: 'Orbitron'; }
     
-    .buy-btn { width: 100%; padding: 10px; border: none; border-radius: 10px; background: #fff; color: #000; font-weight: 900; cursor: pointer; font-size: 11px; }
+    .price-tag { background: rgba(0,0,0,0.4); border-radius: 15px; padding: 10px; margin-bottom: 15px; border: 1px solid var(--border); }
+    .p-kgs { display: block; font-size: 18px; color: #00ffa3; font-weight: 900; }
+    .p-usd { display: block; font-size: 12px; opacity: 0.5; margin-top: 2px; }
+    
+    .buy-btn { width: 100%; padding: 14px; border: none; border-radius: 12px; background: #fff; color: #000; font-weight: 900; cursor: pointer; font-size: 12px; text-transform: uppercase; }
 
-    /* Корзина (Исправлено наложение) */
+    /* Корзина */
     .cart-panel {
-      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-      width: 90%; max-width: 500px; background: rgba(13, 14, 18, 0.95);
-      border: 1px solid var(--accent); padding: 15px; border-radius: 20px;
-      backdrop-filter: blur(10px); display: none; z-index: 1000;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
+      width: 92%; max-width: 500px; background: rgba(10, 11, 14, 0.98);
+      border: 2px solid var(--accent); padding: 20px; border-radius: 25px;
+      backdrop-filter: blur(20px); display: none; z-index: 1000;
+      box-shadow: 0 15px 50px rgba(0,0,0,0.9);
     }
     .pay-btn {
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      width: 100%; padding: 15px; background: #0088cc; color: #fff;
-      text-decoration: none; border-radius: 12px; font-weight: 900; font-size: 16px;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 18px; background: #0088cc; color: #fff;
+      text-decoration: none; border-radius: 15px; font-weight: 900; font-size: 16px;
+      box-shadow: 0 5px 15px rgba(0,136,204,0.3);
     }
 
     /* Таблица */
     .table-row {
-      display: flex; justify-content: space-between; padding: 12px;
-      background: rgba(255,255,255,0.02); margin-bottom: 5px; border-radius: 10px; font-size: 14px;
+      display: flex; justify-content: space-between; align-items: center; padding: 15px;
+      background: var(--card-bg); margin-bottom: 8px; border-radius: 15px; border: 1px solid var(--border);
     }
 
-    footer { text-align: center; padding: 20px; opacity: 0.3; font-size: 10px; line-height: 1.5; }
+    /* Инфо (О нас) */
+    .info-card { background: var(--card-bg); padding: 25px; border-radius: 25px; border: 1px solid var(--border); line-height: 1.7; }
+    .info-card h3 { color: var(--accent); margin-top: 0; font-family: 'Orbitron'; }
+    .info-item { display: flex; gap: 15px; margin-bottom: 20px; }
+    .info-item i { color: var(--accent); font-size: 20px; margin-top: 5px; }
+
+    footer { text-align: center; padding: 40px; opacity: 0.4; font-size: 11px; font-weight: bold; letter-spacing: 1px; }
+    .hammer { font-size: 20px; margin-top: 15px; cursor: pointer; display: inline-block; transition: 0.3s; }
+    .hammer:active { transform: rotate(-45deg) scale(1.2); color: var(--accent); }
   </style>
 </head>
 <body>
 
 <div class="container">
-  <header>
+  <header class="anim">
     <h1>WIKSXZ STORE</h1>
   </header>
 
-  <div class="search-section">
-    <div class="search-box">
-      <i class="fas fa-search"></i>
-      <input type="text" id="global-search" class="search-input" placeholder="Найти игрока по нику..." oninput="searchPlayer()">
-    </div>
+  <div class="search-box anim delay-1">
+    <i class="fas fa-search"></i>
+    <input type="text" id="global-search" class="search-input" placeholder="Поиск покупателя по нику..." oninput="searchPlayer()">
   </div>
 
-  <div class="tabs">
+  <div class="tabs anim delay-1">
     <button class="tab-btn active" onclick="openTab(event, 'shop')">Магазин</button>
     <button class="tab-btn" onclick="openTab(event, 'top')">Таблица</button>
     <button class="tab-btn" onclick="openTab(event, 'info')">О нас</button>
   </div>
 
   <div id="shop" class="content active">
-    <input type="text" id="player-nick" class="nick-input" placeholder="НИК ROBLOX" oninput="checkNick()">
+    <input type="text" id="player-nick" class="nick-input anim delay-2" placeholder="ВВЕДИТЕ ВАШ НИК">
     <div class="grid" id="catalog"></div>
   </div>
 
@@ -121,33 +147,44 @@
   </div>
 
   <div id="info" class="content">
-    <div style="background: var(--card); padding: 20px; border-radius: 20px; font-size: 14px;">
-      <h3 style="color:var(--accent)">Wiksxz Store</h3>
-      <p>Лучший сервис по продаже Робуксов в Кыргызстане. Моментальная доставка и лучшие цены.</p>
-      <p>Все транзакции защищены. Работаем 24/7 для вашего комфорта.</p>
+    <div class="info-card anim">
+      <h3>ПОЧЕМУ МЫ?</h3>
+      <div class="info-item">
+        <i class="fas fa-bolt"></i>
+        <span><b>Скорость:</b> Отправка робуксов занимает от 5 до 15 минут после оплаты.</span>
+      </div>
+      <div class="info-item">
+        <i class="fas fa-shield-halved"></i>
+        <span><b>Безопасность:</b> Мы используем только легальные методы перевода (Gamepass/Group).</span>
+      </div>
+      <div class="info-item">
+        <i class="fas fa-wallet"></i>
+        <span><b>Выгода:</b> Самый низкий курс в Кыргызстане. Мы ценим каждого клиента.</span>
+      </div>
+      <p style="font-size: 12px; opacity: 0.6; border-top: 1px solid var(--border); pt: 15px;">
+        * Примечание: Для получения робуксов ваш аккаунт должен соответствовать требованиям Roblox.
+      </p>
     </div>
   </div>
 
-  <footer>
-    СДЕЛАННО ИИ <br> 
-    ЗАЩИЩЕНО ПРАВАМИ WIKSXZ SHOP © 2026 <br>
-    ВСЕ ПРАВА ЗАРЕЗЕРВИРОВАНЫ
+  <footer class="anim delay-3">
+    СДЕЛАНО ИИ • СИСТЕМА WIKSXZ <br>
+    ВСЕ ПРАВА ЗАЩИЩЕНЫ © 2026 <br>
+    <i class="fas fa-hammer hammer" id="adm-hammer" onclick="tapAdm()"></i>
   </footer>
 </div>
 
 <div id="cart-box" class="cart-panel">
-  <div id="cart-items" style="max-height: 80px; overflow-y: auto; margin-bottom: 10px; font-size: 12px; opacity: 0.7;"></div>
-  <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-    <span>ИТОГО:</span>
-    <b id="total-price" style="color: var(--accent);">0 сом</b>
+  <div id="cart-list" style="font-size: 13px; margin-bottom: 12px; color: var(--accent); font-weight: bold;"></div>
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+    <span style="opacity: 0.6; font-weight: 800;">ИТОГО К ОПЛАТЕ:</span>
+    <b id="total-price" style="font-size: 24px; font-family: 'Orbitron';">0 СОМ</b>
   </div>
-  <a href="#" id="tg-link" class="pay-btn">ПОДТВЕРДИТЬ И ОПЛАТИТЬ</a>
+  <a href="#" id="tg-link" class="pay-btn"><i class="fab fa-telegram-plane"></i> ПЕРЕЙТИ К ОПЛАТЕ</a>
 </div>
 
 <script>
-  let cart = [];
-  let rate = 92.5;
-  let allPlayers = [];
+  let cart = [], rate = 92.5, allPlayers = [], taps = 0;
   const items = [
     {rb: 40, usd: 0.49}, {rb: 80, usd: 0.99}, {rb: 400, usd: 4.99}, {rb: 800, usd: 9.99}, {rb: 1700, usd: 19.99}
   ];
@@ -163,12 +200,12 @@
   }
 
   function renderShop() {
-    document.getElementById('catalog').innerHTML = items.map(i => `
-      <div class="card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_black.svg" class="rb-icon" style="filter: invert(1);">
+    document.getElementById('catalog').innerHTML = items.map((i, index) => `
+      <div class="card anim" style="animation-delay: ${0.2 + (index*0.1)}s">
+        <i class="fas fa-gem rb-icon"></i>
         <span class="rb-amount">${i.rb} R$</span>
         <div class="price-tag">
-          <span class="p-kgs">${Math.ceil(i.usd * rate)} сом</span>
+          <span class="p-kgs">${Math.ceil(i.usd * rate)} СОМ</span>
           <span class="p-usd">$${i.usd}</span>
         </div>
         <button class="buy-btn" onclick="add(${i.rb}, ${i.usd})">В КОРЗИНУ</button>
@@ -190,7 +227,10 @@
 
   function renderTable(data) {
     document.getElementById('player-table').innerHTML = data.map(([n, v]) => `
-      <div class="table-row"><span>${n}</span><b>${v} R$</b></div>
+      <div class="table-row anim">
+        <span><i class="fas fa-user-circle" style="color:var(--accent); margin-right:10px;"></i><b>${n}</b></span>
+        <b style="color:#00ffa3">${v} R$</b>
+      </div>
     `).join('');
   }
 
@@ -198,7 +238,7 @@
     const val = document.getElementById('global-search').value.toLowerCase();
     const filtered = allPlayers.filter(p => p[0].toLowerCase().includes(val));
     renderTable(filtered);
-    if(val !== "") openTab(null, 'top'); // Автопереключение на вкладку таблицы при поиске
+    if(val !== "") openTab(null, 'top');
   }
 
   function openTab(e, id) {
@@ -211,25 +251,34 @@
 
   function add(rb, usd) {
     let nick = document.getElementById('player-nick').value.trim();
-    if(nick.length < 3) return alert("СНАЧАЛА ВВЕДИ НИК!");
+    if(nick.length < 3) {
+        document.getElementById('player-nick').style.borderColor = 'red';
+        return alert("ВВЕДИ СВОЙ НИК!");
+    }
+    document.getElementById('player-nick').style.borderColor = 'var(--accent)';
     cart.push({rb, usd});
     updateCart();
   }
 
   function updateCart() {
     const box = document.getElementById('cart-box');
-    const itemsDiv = document.getElementById('cart-items');
     box.style.display = cart.length ? 'block' : 'none';
-    
-    let sumU = 0, sumR = 0;
-    itemsDiv.innerHTML = cart.map(c => `${c.rb} Robux`).join(', ');
-    cart.forEach(c => { sumU += c.usd; sumR += c.rb; });
-    
-    const kgs = Math.ceil(sumU * rate);
-    document.getElementById('total-price').innerText = kgs + " сом";
-    
-    const text = `💎 ЗАКАЗ #W-${Math.floor(Math.random()*9000)}\n👤 НИК: ${document.getElementById('player-nick').value}\n📦 ТОВАР: ${sumR} Robux\n💰 ИТОГО: ${kgs} сом`;
-    document.getElementById('tg-link').href = "https://t.me/i_wiksxz0?text=" + encodeURIComponent(text);
+    let totalU = 0, totalR = 0;
+    document.getElementById('cart-list').innerText = cart.map(c => c.rb + ' R$').join(' + ');
+    cart.forEach(c => { totalU += c.usd; totalR += c.rb; });
+    const kgs = Math.ceil(totalU * rate);
+    document.getElementById('total-price').innerText = kgs + " СОМ";
+    const msg = `💎 ПРЕДЗАКАЗ\n👤 НИК: ${document.getElementById('player-nick').value}\n📦 ТОВАР: ${totalR} Robux\n💰 К ОПЛАТЕ: ${kgs} сом\n\nЯ подтверждаю заказ.`;
+    document.getElementById('tg-link').href = "https://t.me/i_wiksxz0?text=" + encodeURIComponent(msg);
+  }
+
+  function tapAdm() {
+    taps++;
+    if(taps >= 30) {
+        let p = prompt("ПАРОЛЬ АДМИНА:");
+        if(p === "WiksxzShop") window.location.href = "https://docs.google.com/spreadsheets/d/1duBvq0ywgpBwM4sk2Er7bIpTYWkpQSj4fQ4FI_yrAP8/edit";
+        taps = 0;
+    }
   }
 
   init();
