@@ -22,14 +22,22 @@
     body {
       margin: 0; background: var(--bg); color: #fff;
       font-family: 'Inter', sans-serif; overflow-x: hidden;
-      /* ВОЗВРАЩАЕМ ЗВЕЗДЫ */
-      background-image: 
-        radial-gradient(circle at 50% 50%, #0a111a 0%, #030406 100%),
-        url('https://www.transparenttextures.com/patterns/stardust.png');
-      background-attachment: fixed;
     }
 
-    .container { width: 100%; max-width: 600px; margin: 0 auto; padding: 20px 20px 250px 20px; }
+    /* АНИМИРОВАННЫЙ ФОН СО ЗВЕЗДАМИ */
+    .bg-stars {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(circle at 50% 50%, #0a111a 0%, #030406 100%);
+      z-index: -1;
+    }
+    .bg-stars::after {
+      content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+      background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+      animation: rotateStars 120s linear infinite; opacity: 0.3;
+    }
+    @keyframes rotateStars { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    .container { width: 100%; max-width: 600px; margin: 0 auto; padding: 20px 20px 280px 20px; position: relative; }
 
     header { text-align: center; margin-bottom: 30px; }
     header h1 { font-family: 'Orbitron'; font-size: 2.2rem; margin: 0; color: var(--accent); text-shadow: 0 0 15px rgba(0,224,255,0.4); }
@@ -42,13 +50,13 @@
     .tab-btn { flex: 1; padding: 12px; background: var(--glass); border: 1px solid rgba(255,255,255,0.05); color: #888; border-radius: 10px; cursor: pointer; font-weight: 900; font-size: 11px; text-transform: uppercase; }
     .tab-btn.active { background: var(--accent); color: #000; box-shadow: 0 0 15px rgba(0,224,255,0.3); }
 
-    .content { display: none; animation: fadeIn 0.3s ease; }
+    .content { display: none; animation: fadeIn 0.4s ease; }
     .content.active { display: block; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
     .nick-box { margin-bottom: 25px; }
-    .nick-input { width: 100%; padding: 18px; border-radius: 15px; border: 2px solid rgba(255,255,255,0.1); background: #000; color: #fff; font-size: 18px; text-align: center; font-weight: 900; outline: none; }
-    .nick-input:focus { border-color: var(--accent); }
+    .nick-input { width: 100%; padding: 18px; border-radius: 15px; border: 2px solid rgba(255,255,255,0.1); background: #000; color: #fff; font-size: 18px; text-align: center; font-weight: 900; outline: none; transition: 0.3s; }
+    .nick-input:focus { border-color: var(--accent); box-shadow: 0 0 20px rgba(0,224,255,0.1); }
     
     .legal-warn { 
       background: rgba(255, 68, 68, 0.1); border: 1px solid var(--danger);
@@ -58,44 +66,52 @@
 
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 18px; padding: 20px 10px; text-align: center; backdrop-filter: blur(5px); transition: 0.3s; }
-    .card:hover { border-color: var(--accent); transform: scale(1.02); }
+    .card:hover { border-color: var(--accent); transform: translateY(-3px); }
     .rb-count { display: block; font-size: 22px; font-weight: 900; margin: 10px 0; font-family: 'Orbitron'; color: #fff; }
     .price-tag { background: rgba(0,0,0,0.5); padding: 8px; border-radius: 10px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.05); }
     .p-kgs { display: block; font-size: 17px; color: #00ffa3; font-weight: 900; }
     
     .buy-btn { width: 100%; padding: 10px; border: none; border-radius: 8px; background: #fff; color: #000; font-weight: 900; cursor: pointer; text-transform: uppercase; font-size: 11px; }
 
-    /* КОРЗИНА */
+    /* ДЕТАЛЬНАЯ КОРЗИНА */
     .cart-float {
       position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%);
       width: 92%; max-width: 500px; background: rgba(10, 11, 16, 0.98); border: 2px solid var(--accent);
-      padding: 18px; border-radius: 22px; backdrop-filter: blur(20px); display: none; z-index: 2000;
-      box-shadow: 0 -10px 40px rgba(0,0,0,0.8);
+      padding: 20px; border-radius: 25px; backdrop-filter: blur(20px); display: none; z-index: 2000;
+      box-shadow: 0 -10px 50px rgba(0,0,0,1);
+      animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    .cart-list-items { max-height: 80px; overflow-y: auto; margin-bottom: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
-    .mini-badge { background: rgba(255,255,255,0.08); padding: 5px 10px; border-radius: 8px; font-size: 11px; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); font-weight: bold; }
-    .mini-badge:hover { border-color: var(--danger); color: var(--danger); background: rgba(255,68,68,0.1); }
-    
-    .cart-stats { font-size: 12px; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); pb: 10px; }
-    .stat-row { display: flex; justify-content: space-between; margin-bottom: 4px; opacity: 0.8; }
-    
-    .total-line { display: flex; justify-content: space-between; font-weight: 900; font-size: 20px; align-items: center; }
+    @keyframes slideUp { from { transform: translate(-50%, 100%); } to { transform: translate(-50%, 0); } }
 
-    .cart-actions { display: grid; grid-template-columns: 1fr 2fr; gap: 10px; margin-top: 15px; }
+    .cart-list-items { max-height: 80px; overflow-y: auto; margin-bottom: 12px; display: flex; flex-wrap: wrap; gap: 6px; border-bottom: 1px solid rgba(255,255,255,0.05); pb: 10px; }
+    .mini-badge { background: rgba(0, 224, 255, 0.1); padding: 5px 10px; border-radius: 8px; font-size: 11px; cursor: pointer; border: 1px solid rgba(0, 224, 255, 0.2); font-weight: bold; color: var(--accent); }
+    .mini-badge:hover { background: rgba(255, 68, 68, 0.2); border-color: var(--danger); color: var(--danger); }
+    
+    .cart-stats { font-size: 12px; margin-bottom: 15px; }
+    .stat-row { display: flex; justify-content: space-between; margin-bottom: 6px; }
+    .stat-label { opacity: 0.6; font-weight: 700; text-transform: uppercase; font-size: 10px; }
+    .stat-value { font-weight: 900; }
+    
+    .total-line { display: flex; justify-content: space-between; font-weight: 900; font-size: 22px; align-items: baseline; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); }
+    .total-rb-sub { font-size: 12px; color: var(--premium); margin-left: 5px; font-family: 'Orbitron'; }
+
+    .cart-actions { display: grid; grid-template-columns: 1fr 2fr; gap: 12px; margin-top: 20px; }
     .cancel-btn { padding: 15px; background: #1a1a1a; color: var(--danger); border: 1px solid var(--danger); border-radius: 12px; font-weight: 900; cursor: pointer; text-align: center; font-size: 11px; text-transform: uppercase; }
-    .pay-btn { padding: 15px; background: #0088cc; color: #fff; border-radius: 12px; font-weight: 900; text-decoration: none; text-align: center; font-size: 14px; box-shadow: 0 5px 15px rgba(0,136,204,0.3); }
+    .pay-btn { padding: 15px; background: var(--accent); color: #000; border-radius: 12px; font-weight: 900; text-decoration: none; text-align: center; font-size: 14px; text-transform: uppercase; }
 
     footer { text-align: center; padding: 40px; font-size: 10px; opacity: 0.4; line-height: 1.6; font-weight: bold; }
   </style>
 </head>
 <body oncontextmenu="return false;">
 
+<div class="bg-stars"></div>
+
 <div class="container">
   <header><h1>WIKSXZ SHOP</h1></header>
 
   <div class="search-box">
     <i class="fas fa-search"></i>
-    <input type="text" id="search" class="search-input" placeholder="Поиск игрока в таблице..." oninput="doSearch()">
+    <input type="text" id="search" class="search-input" placeholder="Введите ник для проверки..." oninput="doSearch()">
   </div>
 
   <div class="tabs">
@@ -108,25 +124,24 @@
     <div class="nick-box">
       <input type="text" id="unick" class="nick-input" placeholder="НИК ROBLOX">
       <div class="legal-warn">
-        ОТВЕТСТВЕННОСТЬ ЗА ОШИБКИ В НИКЕ МЫ НЕ НЕСЕМ!<br>БУДЬТЕ ВНИМАТЕЛЬНЫ — РОБУКСЫ НЕ ВЕРНУТЬ!
+        ОТВЕТСТВЕННОСТЬ ЗА ОШИБКИ В НИКЕ МЫ НЕ НЕСЕМ!<br>РОБУКСЫ НЕ ПОДЛЕЖАТ ВОЗВРАТУ!
       </div>
     </div>
     <div class="grid" id="items"></div>
   </div>
 
   <div id="list" class="content"><div id="table-box"></div></div>
+  
   <div id="about" class="content">
     <div style="background:var(--glass); padding:20px; border-radius:15px; font-size:13px; line-height:1.6; border: 1px solid rgba(255,255,255,0.05);">
         <h3 style="color:var(--accent); margin-top:0; font-family:'Orbitron';">WIKSXZ PREMIUM</h3>
-        Лучший сервис по продаже робуксов в Кыргызстане. Моментальная проверка через таблицу и удобная оплата. 
-        <br><br>
-        <b>Налог 5 сом</b> идет на поддержание работы бота и серверов.
+        Мы — лидеры рынка игровых валют в Кыргызстане. Самый быстрый сервис и прозрачная история всех сделок.
     </div>
   </div>
 
   <footer>
     СДЕЛАНО ИИ • ВСЕ ПРАВА ЗАЩИЩЕНЫ <br>
-    ОТВЕТСТВЕННОСТЬ МЫ НЕ НЕСЁМ — БУДЬТЕ ВНИМАТЕЛЬНЫ ПРИ ВВОДЕ НИКА! <br>
+    ОТВЕТСТВЕННОСТЬ МЫ НЕ НЕСЁМ — БУДЬТЕ ВНИМАТЕЛЬНЫ! <br>
     WIKSXZ SHOP © 2026 <br>
     <i class="fas fa-hammer" style="margin-top:10px; cursor:pointer;" onclick="adm()"></i>
   </footer>
@@ -136,31 +151,33 @@
   <div class="cart-list-items" id="cart-badges"></div>
   
   <div class="cart-stats">
-    <div class="stat-row"><span>Всего Робуксов:</span><b id="st-rb">0 R$</b></div>
-    <div class="stat-row"><span>Сумма в USD:</span><b id="st-usd">$0.00</b></div>
-    <div class="stat-row"><span>Комиссия:</span><b>5 СОМ</b></div>
+    <div class="stat-row"><span class="stat-label">Валюта (USD):</span><span class="stat-value" id="st-usd">$0.00</span></div>
+    <div class="stat-row"><span class="stat-label">Комиссия (Налог):</span><span class="stat-value">5 СОМ</span></div>
   </div>
 
   <div class="total-line">
-    <span>ИТОГО:</span>
-    <span id="total" style="color:var(--accent);">0 СОМ</span>
+    <span style="font-size: 14px; opacity: 0.6;">ИТОГО:</span>
+    <div>
+      <span id="total" style="color:var(--accent);">0 СОМ</span>
+      <span id="st-rb" class="total-rb-sub">0 R$</span>
+    </div>
   </div>
 
   <div class="cart-actions">
-    <div class="cancel-btn" onclick="clearCart()">ОЧИСТИТЬ</div>
-    <a href="#" id="tg-send" class="pay-btn" onclick="return sendOrder()">ПОДТВЕРДИТЬ</a>
+    <div class="cancel-btn" onclick="clearCart()">ОТМЕНА</div>
+    <a href="#" id="tg-send" class="pay-btn" onclick="return sendOrder()">КУПИТЬ</a>
   </div>
 </div>
 
 <script>
-  let cart = [], rate = 92.5, players = [], taps = 0;
+  let cart = [], rate = 92.43, players = [], taps = 0;
   const products = [{rb:40,u:0.49},{rb:80,u:0.99},{rb:400,u:4.99},{rb:800,u:9.99},{rb:1700,u:19.99}];
 
   async function init() {
     try {
       const r = await fetch('https://open.er-api.com/v6/latest/USD');
       const d = await r.json();
-      rate = d.rates.KGS + 5;
+      rate = d.rates.KGS + 5; 
       renderShop();
       loadDB();
     } catch(e) { renderShop(); }
@@ -169,7 +186,7 @@
   function renderShop() {
     document.getElementById('items').innerHTML = products.map(p => `
       <div class="card">
-        <i class="fas fa-cube" style="color:var(--premium); font-size:20px;"></i>
+        <i class="fas fa-gem" style="color:var(--premium); font-size:20px;"></i>
         <span class="rb-count">${p.rb} R$</span>
         <div class="price-tag"><span class="p-kgs">${Math.ceil(p.u * rate)} СОМ</span></div>
         <button class="buy-btn" onclick="buy(${p.rb}, ${p.u})">В КОРЗИНУ</button>
@@ -183,16 +200,21 @@
       const text = await res.text();
       const rows = text.split('\n').slice(1).map(r => r.split(',').map(c => c.replace(/"/g,'')));
       let s = {};
-      rows.forEach(r => { if(r[0] && r[2]) s[r[0]] = (s[r[0]] || 0) + parseInt(r[2]); });
+      rows.forEach(r => { 
+        let name = r[0];
+        let val = parseInt(r[2]);
+        if(name && !isNaN(val)) s[name] = (s[name] || 0) + val; 
+      });
       players = Object.entries(s).sort((a,b) => b[1]-a[1]);
       renderTable(players);
-    } catch(e) {}
+    } catch(e) { console.log("Ошибка таблиц. Проверь доступ!"); }
   }
 
   function renderTable(data) {
     document.getElementById('table-box').innerHTML = data.map(([n,v]) => `
-      <div style="display:flex; justify-content:space-between; padding:12px; background:rgba(255,255,255,0.03); margin-bottom:5px; border-radius:10px; font-size:13px; border:1px solid rgba(255,255,255,0.05);">
-        <span><i class="fas fa-user-circle" style="color:var(--accent); margin-right:8px;"></i>${n}</span><b>${v} R$</b>
+      <div style="display:flex; justify-content:space-between; padding:12px; background:rgba(255,255,255,0.04); margin-bottom:6px; border-radius:12px; font-size:13px; border:1px solid rgba(255,255,255,0.05);">
+        <span style="font-weight:700;"><i class="fas fa-user-circle" style="color:var(--accent); margin-right:8px;"></i>${n}</span>
+        <b style="color:var(--premium)">${v} R$</b>
       </div>
     `).join('');
   }
@@ -211,7 +233,7 @@
 
   function buy(rb, u) {
     let n = document.getElementById('unick').value.trim();
-    if(n.length < 3) return alert("Введите ник Roblox!");
+    if(n.length < 3) return alert("Введите свой ник!");
     cart.push({rb, u});
     updateCart();
   }
@@ -231,7 +253,7 @@
     const badgeBox = document.getElementById('cart-badges');
     box.style.display = cart.length ? 'block' : 'none';
     
-    badgeBox.innerHTML = cart.map((c, i) => `<span class="mini-badge" onclick="removeItem(${i})">${c.rb} R$ &times;</span>`).join('');
+    badgeBox.innerHTML = cart.map((c, i) => `<span class="mini-badge" onclick="removeItem(${i})">${c.rb}R$ &times;</span>`).join('');
     
     let tu = 0, tr = 0;
     cart.forEach(c => { tu += c.u; tr += c.rb; });
@@ -248,7 +270,7 @@
     cart.forEach(c => { tr += c.rb; tu += c.u; });
     const kgs = Math.ceil(tu * rate) + 5;
 
-    const msg = `💎 НОВЫЙ ЗАКАЗ\n👤 НИК: ${nick}\n📦 ТОВАР: ${tr} Robux\n💵 ВАЛЮТА: $${tu.toFixed(2)}\n💰 К ОПЛАТЕ: ${kgs} сом (с учетом налога)\n\n⚠️ ОТВЕТСТВЕННОСТЬ ЗА ОШИБКИ В НИКЕ ВЗЯЛ НА СЕБЯ.`;
+    const msg = `💎 НОВЫЙ ЗАКАЗ\n👤 НИК: ${nick}\n📦 ТОВАР: ${tr} Robux\n💵 СУММА: $${tu.toFixed(2)}\n💰 ИТОГО: ${kgs} сом\n\n⚠️ С ПРАВИЛАМИ И НАЛОГОМ ОЗНАКОМЛЕН.`;
     
     window.open("https://t.me/i_wiksxz0?text=" + encodeURIComponent(msg), "_blank");
     return false;
@@ -257,7 +279,7 @@
   function adm() {
     taps++;
     if(taps >= 30) {
-      if(prompt("PASS:") === "WiksxzShop") window.location.href = "https://docs.google.com/spreadsheets/d/1duBvq0ywgpBwM4sk2Er7bIpTYWkpQSj4fQ4FI_yrAP8/edit";
+      if(prompt("ПАРОЛЬ:") === "WiksxzShop") window.location.href = "https://docs.google.com/spreadsheets/d/1duBvq0ywgpBwM4sk2Er7bIpTYWkpQSj4fQ4FI_yrAP8/edit";
       taps = 0;
     }
   }
