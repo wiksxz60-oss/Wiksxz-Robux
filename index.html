@@ -3,245 +3,232 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" />
-  <title>WIKSXZ PREMIUM | Лучший в КР</title>
+  <title>WIKSXZ STORE | PREMIUM ROBUX</title>
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Plus+Jakarta+Sans:wght@400;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;700;900&display=swap');
 
     :root {
-      --bg: #050608;
+      --bg: #030406;
       --accent: #00e0ff;
       --premium: #ffc200;
-      --card-bg: rgba(255, 255, 255, 0.03);
-      --border: rgba(255, 255, 255, 0.08);
-      --gradient: linear-gradient(135deg, #00e0ff 0%, #7000ff 100%);
+      --danger: #ff3333;
+      --glass: rgba(255, 255, 255, 0.03);
     }
 
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     
     body {
       margin: 0; background: var(--bg); color: #fff;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      overflow-x: hidden;
-      background-image: radial-gradient(circle at 50% -20%, rgba(0, 224, 255, 0.15), transparent 70%);
-      user-select: none;
+      font-family: 'Inter', sans-serif; overflow-x: hidden;
+      /* Анимированный фон */
+      background: radial-gradient(circle at 50% 50%, #0a111a 0%, #030406 100%);
     }
 
-    .container { width: 100%; max-width: 600px; margin: 0 auto; padding: 20px 20px 160px 20px; }
-
-    /* Анимации появления */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); filter: blur(10px); }
-      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    /* Анимированные частицы на фоне */
+    body::before {
+      content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: url('https://www.transparenttextures.com/patterns/stardust.png');
+      opacity: 0.2; pointer-events: none; animation: moveBg 50s linear infinite;
     }
+    @keyframes moveBg { from { background-position: 0 0; } to { background-position: 1000px 1000px; } }
 
-    .anim { animation: fadeInUp 0.6s cubic-bezier(0.2, 1, 0.3, 1) forwards; opacity: 0; }
-    .delay-1 { animation-delay: 0.1s; }
-    .delay-2 { animation-delay: 0.2s; }
-    .delay-3 { animation-delay: 0.3s; }
+    .container { width: 100%; max-width: 650px; margin: 0 auto; padding: 20px 20px 150px 20px; }
 
-    header { text-align: center; margin-bottom: 30px; }
-    header h1 { font-family: 'Orbitron'; font-size: 2.5rem; margin: 0; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 15px rgba(0,224,255,0.3)); }
+    header { text-align: center; margin-bottom: 30px; animation: slideDown 0.8s ease; }
+    header h1 { font-family: 'Orbitron'; font-size: 2.5rem; margin: 0; text-shadow: 0 0 20px var(--accent); }
+
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
 
     /* Поиск */
-    .search-box { position: relative; margin-bottom: 25px; }
+    .search-box { position: relative; margin-bottom: 20px; z-index: 10; }
     .search-input {
-      width: 100%; padding: 18px 50px; border-radius: 20px; border: 1px solid var(--border);
-      background: rgba(255,255,255,0.02); color: #fff; font-size: 15px; outline: none; backdrop-filter: blur(10px);
+      width: 100%; padding: 18px 50px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(0,0,0,0.6); color: #fff; font-size: 14px; outline: none; backdrop-filter: blur(10px);
     }
-    .search-input:focus { border-color: var(--accent); box-shadow: 0 0 20px rgba(0,224,255,0.1); }
+    .search-input:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(0,224,255,0.2); }
     .search-box i { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--accent); }
 
     /* Вкладки */
-    .tabs { display: flex; gap: 10px; margin-bottom: 25px; position: sticky; top: 15px; z-index: 100; backdrop-filter: blur(15px); padding: 5px; border-radius: 15px; background: rgba(13, 14, 18, 0.8); }
+    .tabs { display: flex; gap: 8px; margin-bottom: 25px; }
     .tab-btn {
-      flex: 1; padding: 12px; background: transparent; border: 1px solid transparent;
-      color: #888; border-radius: 12px; cursor: pointer; font-weight: 800; font-size: 11px; text-transform: uppercase;
+      flex: 1; padding: 14px; background: var(--glass); border: 1px solid rgba(255,255,255,0.05);
+      color: #aaa; border-radius: 12px; cursor: pointer; font-weight: 900; font-size: 12px; text-transform: uppercase;
     }
-    .tab-btn.active { background: rgba(0, 224, 255, 0.1); color: var(--accent); border-color: rgba(0, 224, 255, 0.2); }
+    .tab-btn.active { background: var(--accent); color: #000; font-weight: 900; }
 
-    .content { display: none; }
+    .content { display: none; animation: fadeIn 0.4s ease; }
     .content.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; filter: blur(5px); } to { opacity: 1; filter: blur(0); } }
 
-    /* Ник */
+    /* Ник и Предупреждение */
+    .nick-area { margin-bottom: 30px; }
     .nick-input {
-      width: 100%; padding: 22px; border-radius: 20px; border: 2px solid var(--border);
-      background: #000; color: #fff; font-size: 20px; text-align: center; font-weight: 900; outline: none; margin-bottom: 25px;
+      width: 100%; padding: 20px; border-radius: 15px; border: 2px solid rgba(255,255,255,0.1);
+      background: #000; color: #fff; font-size: 20px; text-align: center; font-weight: 900; outline: none;
     }
-    .nick-input:focus { border-color: var(--accent); transform: scale(1.02); }
+    .nick-input:focus { border-color: var(--accent); }
+    .input-warn { 
+        color: var(--danger); font-size: 11px; font-weight: 800; text-align: center; 
+        margin-top: 10px; text-transform: uppercase; letter-spacing: 1px;
+    }
 
-    /* Карточки товаров */
+    /* Товары */
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
     .card { 
-      background: var(--card-bg); border: 1px solid var(--border); border-radius: 25px; 
-      padding: 25px 15px; text-align: center; position: relative;
+        background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); 
+        border-radius: 20px; padding: 25px 15px; text-align: center; position: relative;
+        transition: 0.3s;
     }
-    .card:hover { border-color: var(--accent); background: rgba(0, 224, 255, 0.03); }
-    .rb-icon { font-size: 35px; color: var(--premium); margin-bottom: 12px; filter: drop-shadow(0 0 10px rgba(255,188,0,0.3)); }
-    .rb-amount { display: block; font-size: 24px; font-weight: 900; margin-bottom: 15px; font-family: 'Orbitron'; }
+    .card:hover { transform: translateY(-5px); border-color: var(--accent); background: rgba(0,224,255,0.02); }
+    .rb-icon { font-size: 30px; color: var(--premium); margin-bottom: 10px; }
+    .rb-count { display: block; font-size: 24px; font-weight: 900; margin-bottom: 15px; }
     
-    .price-tag { background: rgba(0,0,0,0.4); border-radius: 15px; padding: 10px; margin-bottom: 15px; border: 1px solid var(--border); }
-    .p-kgs { display: block; font-size: 18px; color: #00ffa3; font-weight: 900; }
-    .p-usd { display: block; font-size: 12px; opacity: 0.5; margin-top: 2px; }
+    .price-box { background: rgba(0,0,0,0.4); border-radius: 12px; padding: 10px; margin-bottom: 15px; }
+    .price-s { display: block; font-size: 18px; color: #00ffa3; font-weight: 900; }
+    .price-d { display: block; font-size: 12px; opacity: 0.5; }
     
-    .buy-btn { width: 100%; padding: 14px; border: none; border-radius: 12px; background: #fff; color: #000; font-weight: 900; cursor: pointer; font-size: 12px; text-transform: uppercase; }
+    .buy-btn { 
+        width: 100%; padding: 12px; border: none; border-radius: 10px; 
+        background: #fff; color: #000; font-weight: 900; cursor: pointer;
+    }
 
     /* Корзина */
-    .cart-panel {
-      position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
-      width: 92%; max-width: 500px; background: rgba(10, 11, 14, 0.98);
-      border: 2px solid var(--accent); padding: 20px; border-radius: 25px;
-      backdrop-filter: blur(20px); display: none; z-index: 1000;
-      box-shadow: 0 15px 50px rgba(0,0,0,0.9);
+    .cart-float {
+      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+      width: 90%; max-width: 500px; background: rgba(10, 15, 20, 0.95);
+      border: 1px solid var(--accent); padding: 20px; border-radius: 20px;
+      backdrop-filter: blur(15px); display: none; z-index: 1000;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.8);
     }
-    .pay-btn {
-      display: flex; align-items: center; justify-content: center; gap: 10px;
-      width: 100%; padding: 18px; background: #0088cc; color: #fff;
-      text-decoration: none; border-radius: 15px; font-weight: 900; font-size: 16px;
-      box-shadow: 0 5px 15px rgba(0,136,204,0.3);
-    }
+
+    /* О нас */
+    .about-card { background: var(--glass); padding: 25px; border-radius: 20px; line-height: 1.6; }
+    .about-card h3 { color: var(--accent); font-family: 'Orbitron'; margin-top: 0; }
 
     /* Таблица */
-    .table-row {
-      display: flex; justify-content: space-between; align-items: center; padding: 15px;
-      background: var(--card-bg); margin-bottom: 8px; border-radius: 15px; border: 1px solid var(--border);
-    }
+    .row { display: flex; justify-content: space-between; padding: 12px 15px; background: rgba(255,255,255,0.02); border-radius: 10px; margin-bottom: 8px; font-size: 14px; }
 
-    /* Инфо (О нас) */
-    .info-card { background: var(--card-bg); padding: 25px; border-radius: 25px; border: 1px solid var(--border); line-height: 1.7; }
-    .info-card h3 { color: var(--accent); margin-top: 0; font-family: 'Orbitron'; }
-    .info-item { display: flex; gap: 15px; margin-bottom: 20px; }
-    .info-item i { color: var(--accent); font-size: 20px; margin-top: 5px; }
-
-    footer { text-align: center; padding: 40px; opacity: 0.4; font-size: 11px; font-weight: bold; letter-spacing: 1px; }
-    .hammer { font-size: 20px; margin-top: 15px; cursor: pointer; display: inline-block; transition: 0.3s; }
-    .hammer:active { transform: rotate(-45deg) scale(1.2); color: var(--accent); }
+    footer { text-align: center; padding: 40px; font-size: 10px; opacity: 0.5; line-height: 1.8; }
+    .hammer { font-size: 18px; cursor: pointer; margin-top: 15px; transition: 0.2s; }
+    .hammer:active { transform: rotate(-45deg); color: var(--accent); }
   </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
 <div class="container">
-  <header class="anim">
+  <header>
     <h1>WIKSXZ STORE</h1>
   </header>
 
-  <div class="search-box anim delay-1">
+  <div class="search-box">
     <i class="fas fa-search"></i>
-    <input type="text" id="global-search" class="search-input" placeholder="Поиск покупателя по нику..." oninput="searchPlayer()">
+    <input type="text" id="find-player" class="search-input" placeholder="Введите ник для проверки статистики..." oninput="searchData()">
   </div>
 
-  <div class="tabs anim delay-1">
-    <button class="tab-btn active" onclick="openTab(event, 'shop')">Магазин</button>
-    <button class="tab-btn" onclick="openTab(event, 'top')">Таблица</button>
-    <button class="tab-btn" onclick="openTab(event, 'info')">О нас</button>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab(event, 'shop')">МАГАЗИН</button>
+    <button class="tab-btn" onclick="showTab(event, 'list')">ТАБЛИЦА</button>
+    <button class="tab-btn" onclick="showTab(event, 'about')">О НАС</button>
   </div>
 
   <div id="shop" class="content active">
-    <input type="text" id="player-nick" class="nick-input anim delay-2" placeholder="ВВЕДИТЕ ВАШ НИК">
+    <div class="nick-area">
+      <input type="text" id="nick" class="nick-input" placeholder="ВВЕДИТЕ НИК ROBLOX" oninput="validate()">
+      <div class="input-warn">⚠️ БУДЬТЕ ВНИМАТЕЛЬНЫ! ОШИБКА В НИКЕ = РОБУКСЫ НЕ ПРИДУТ!</div>
+    </div>
     <div class="grid" id="catalog"></div>
   </div>
 
-  <div id="top" class="content">
-    <div id="player-table"></div>
+  <div id="list" class="content">
+    <div id="data-table"></div>
   </div>
 
-  <div id="info" class="content">
-    <div class="info-card anim">
-      <h3>ПОЧЕМУ МЫ?</h3>
-      <div class="info-item">
-        <i class="fas fa-bolt"></i>
-        <span><b>Скорость:</b> Отправка робуксов занимает от 5 до 15 минут после оплаты.</span>
-      </div>
-      <div class="info-item">
-        <i class="fas fa-shield-halved"></i>
-        <span><b>Безопасность:</b> Мы используем только легальные методы перевода (Gamepass/Group).</span>
-      </div>
-      <div class="info-item">
-        <i class="fas fa-wallet"></i>
-        <span><b>Выгода:</b> Самый низкий курс в Кыргызстане. Мы ценим каждого клиента.</span>
-      </div>
-      <p style="font-size: 12px; opacity: 0.6; border-top: 1px solid var(--border); pt: 15px;">
-        * Примечание: Для получения робуксов ваш аккаунт должен соответствовать требованиям Roblox.
-      </p>
+  <div id="about" class="content">
+    <div class="about-card">
+      <h3>WIKSXZ PREMIUM</h3>
+      <p>Мы — ведущий сервис по пополнению Robux в Кыргызстане. Наша цель — предоставить игрокам самый быстрый и безопасный способ получения игровой валюты.</p>
+      <p><b>Почему выбирают нас?</b><br>
+      • Официальные методы перевода<br>
+      • Поддержка клиентов 24/7<br>
+      • Самый выгодный курс</p>
     </div>
   </div>
 
-  <footer class="anim delay-3">
-    СДЕЛАНО ИИ • СИСТЕМА WIKSXZ <br>
-    ВСЕ ПРАВА ЗАЩИЩЕНЫ © 2026 <br>
-    <i class="fas fa-hammer hammer" id="adm-hammer" onclick="tapAdm()"></i>
+  <footer>
+    СДЕЛАНО ИИ • ВСЕ ПРАВА ЗАЩИЩЕНЫ <br>
+    ОТВЕТСТВЕННОСТЬ МЫ НЕ НЕСЁМ — БУДЬТЕ ВНИМАТЕЛЬНЫ ПРИ ВВОДЕ НИКА! <br>
+    WIKSXZ SHOP © 2026 <br>
+    <i class="fas fa-hammer hammer" onclick="admTap()"></i>
   </footer>
 </div>
 
-<div id="cart-box" class="cart-panel">
-  <div id="cart-list" style="font-size: 13px; margin-bottom: 12px; color: var(--accent); font-weight: bold;"></div>
+<div id="cart" class="cart-float">
+  <div id="cart-info" style="font-size: 12px; margin-bottom: 10px; color: var(--accent);"></div>
   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-    <span style="opacity: 0.6; font-weight: 800;">ИТОГО К ОПЛАТЕ:</span>
-    <b id="total-price" style="font-size: 24px; font-family: 'Orbitron';">0 СОМ</b>
+    <span style="font-weight: bold;">ИТОГО:</span>
+    <b id="total" style="font-size: 24px; color: #fff;">0 СОМ</b>
   </div>
-  <a href="#" id="tg-link" class="pay-btn"><i class="fab fa-telegram-plane"></i> ПЕРЕЙТИ К ОПЛАТЕ</a>
+  <a href="#" id="tg-btn" style="display: block; text-align: center; padding: 18px; background: #0088cc; color: #fff; text-decoration: none; border-radius: 12px; font-weight: 900;">ОПЛАТИТЬ ЧЕРЕЗ TELEGRAM</a>
 </div>
 
 <script>
-  let cart = [], rate = 92.5, allPlayers = [], taps = 0;
+  let cart = [], rate = 92.5, db = [], taps = 0;
   const items = [
     {rb: 40, usd: 0.49}, {rb: 80, usd: 0.99}, {rb: 400, usd: 4.99}, {rb: 800, usd: 9.99}, {rb: 1700, usd: 19.99}
   ];
 
-  async function init() {
+  async function start() {
     try {
       const r = await fetch('https://open.er-api.com/v6/latest/USD');
       const d = await r.json();
       rate = d.rates.KGS + 5;
-      renderShop();
-      loadData();
-    } catch(e) { renderShop(); }
+      render();
+      sync();
+    } catch(e) { render(); }
   }
 
-  function renderShop() {
-    document.getElementById('catalog').innerHTML = items.map((i, index) => `
-      <div class="card anim" style="animation-delay: ${0.2 + (index*0.1)}s">
-        <i class="fas fa-gem rb-icon"></i>
-        <span class="rb-amount">${i.rb} R$</span>
-        <div class="price-tag">
-          <span class="p-kgs">${Math.ceil(i.usd * rate)} СОМ</span>
-          <span class="p-usd">$${i.usd}</span>
+  function render() {
+    document.getElementById('catalog').innerHTML = items.map(i => `
+      <div class="card">
+        <i class="fas fa-cube rb-icon"></i>
+        <span class="rb-count">${i.rb} R$</span>
+        <div class="price-box">
+          <span class="price-s">${Math.ceil(i.usd * rate)} СОМ</span>
+          <span class="price-d">$${i.usd}</span>
         </div>
-        <button class="buy-btn" onclick="add(${i.rb}, ${i.usd})">В КОРЗИНУ</button>
+        <button class="buy-btn" onclick="add(${i.rb}, ${i.usd})">КУПИТЬ</button>
       </div>
     `).join('');
   }
 
-  async function loadData() {
+  async function sync() {
     try {
       const res = await fetch('https://docs.google.com/spreadsheets/d/1duBvq0ywgpBwM4sk2Er7bIpTYWkpQSj4fQ4FI_yrAP8/gviz/tq?tqx=out:csv');
       const text = await res.text();
       const rows = text.split('\n').slice(1).map(r => r.split(',').map(c => c.replace(/"/g,'')));
       let s = {};
       rows.forEach(r => { if(r[0] && r[2]) s[r[0]] = (s[r[0]] || 0) + parseInt(r[2]); });
-      allPlayers = Object.entries(s).sort((a,b) => b[1]-a[1]);
-      renderTable(allPlayers);
+      db = Object.entries(s).sort((a,b) => b[1]-a[1]);
+      showTable(db);
     } catch(e) {}
   }
 
-  function renderTable(data) {
-    document.getElementById('player-table').innerHTML = data.map(([n, v]) => `
-      <div class="table-row anim">
-        <span><i class="fas fa-user-circle" style="color:var(--accent); margin-right:10px;"></i><b>${n}</b></span>
-        <b style="color:#00ffa3">${v} R$</b>
-      </div>
+  function showTable(data) {
+    document.getElementById('data-table').innerHTML = data.map(([n, v]) => `
+      <div class="row"><span>${n}</span><b>${v} R$</b></div>
     `).join('');
   }
 
-  function searchPlayer() {
-    const val = document.getElementById('global-search').value.toLowerCase();
-    const filtered = allPlayers.filter(p => p[0].toLowerCase().includes(val));
-    renderTable(filtered);
-    if(val !== "") openTab(null, 'top');
+  function searchData() {
+    const val = document.getElementById('find-player').value.toLowerCase();
+    const filtered = db.filter(p => p[0].toLowerCase().includes(val));
+    showTable(filtered);
+    if(val !== "") showTab(null, 'list');
   }
 
-  function openTab(e, id) {
+  function showTab(e, id) {
     document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.getElementById(id).classList.add('active');
@@ -249,39 +236,39 @@
     else document.querySelector(`[onclick*="${id}"]`).classList.add('active');
   }
 
-  function add(rb, usd) {
-    let nick = document.getElementById('player-nick').value.trim();
-    if(nick.length < 3) {
-        document.getElementById('player-nick').style.borderColor = 'red';
-        return alert("ВВЕДИ СВОЙ НИК!");
-    }
-    document.getElementById('player-nick').style.borderColor = 'var(--accent)';
-    cart.push({rb, usd});
-    updateCart();
+  function validate() {
+    let n = document.getElementById('nick').value.trim();
+    document.getElementById('nick').style.borderColor = n.length >= 3 ? 'var(--accent)' : 'rgba(255,255,255,0.1)';
   }
 
-  function updateCart() {
-    const box = document.getElementById('cart-box');
+  function add(rb, usd) {
+    let n = document.getElementById('nick').value.trim();
+    if(n.length < 3) return alert("ОШИБКА: Сначала введите свой ник Roblox!");
+    cart.push({rb, usd});
+    update();
+  }
+
+  function update() {
+    const box = document.getElementById('cart');
     box.style.display = cart.length ? 'block' : 'none';
     let totalU = 0, totalR = 0;
-    document.getElementById('cart-list').innerText = cart.map(c => c.rb + ' R$').join(' + ');
+    document.getElementById('cart-info').innerText = "В КОРЗИНЕ: " + cart.map(c => c.rb + "R$").join(" + ");
     cart.forEach(c => { totalU += c.usd; totalR += c.rb; });
     const kgs = Math.ceil(totalU * rate);
-    document.getElementById('total-price').innerText = kgs + " СОМ";
-    const msg = `💎 ПРЕДЗАКАЗ\n👤 НИК: ${document.getElementById('player-nick').value}\n📦 ТОВАР: ${totalR} Robux\n💰 К ОПЛАТЕ: ${kgs} сом\n\nЯ подтверждаю заказ.`;
-    document.getElementById('tg-link').href = "https://t.me/i_wiksxz0?text=" + encodeURIComponent(msg);
+    document.getElementById('total').innerText = kgs + " СОМ";
+    const msg = `💎 НОВЫЙ ЗАКАЗ\n👤 НИК: ${document.getElementById('nick').value}\n📦 ТОВАР: ${totalR} Robux\n💰 К ОПЛАТЕ: ${kgs} сом\n\n⚠️ С ПРЕДУПРЕЖДЕНИЕМ О НИКЕ ОЗНАКОМЛЕН И СОГЛАСЕН.`;
+    document.getElementById('tg-btn').href = "https://t.me/i_wiksxz0?text=" + encodeURIComponent(msg);
   }
 
-  function tapAdm() {
+  function admTap() {
     taps++;
     if(taps >= 30) {
-        let p = prompt("ПАРОЛЬ АДМИНА:");
-        if(p === "WiksxzShop") window.location.href = "https://docs.google.com/spreadsheets/d/1duBvq0ywgpBwM4sk2Er7bIpTYWkpQSj4fQ4FI_yrAP8/edit";
+        if(prompt("ACCESS:") === "WiksxzShop") window.location.href = "https://docs.google.com/spreadsheets/d/1duBvq0ywgpBwM4sk2Er7bIpTYWkpQSj4fQ4FI_yrAP8/edit";
         taps = 0;
     }
   }
 
-  init();
+  start();
 </script>
 </body>
 </html>
