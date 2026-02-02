@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" />
-  <title>WIKSXZ STORE | LIVE RATE</title>
+  <title>WIKSXZ STORE | MBANK EDITION</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;700;900&display=swap');
@@ -11,15 +11,15 @@
     :root { --bg: #030406; --accent: #00e0ff; --premium: #ffc200; --danger: #ff4444; --success: #00ffa3; }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
     
-    body { margin: 0; background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh; }
+    body { margin: 0; background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column; }
 
     .space { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle at 50% 50%, #0a111a 0%, #030406 100%); }
     .stars { position: absolute; width: 200%; height: 200%; background: url('https://www.transparenttextures.com/patterns/stardust.png'); animation: spaceFly 120s linear infinite; opacity: 0.3; }
     @keyframes spaceFly { from { transform: translate(0,0); } to { transform: translate(-25%, -25%); } }
     
-    .container { width: 100%; max-width: 600px; margin: 0 auto; padding: 20px 20px 380px 20px; flex: 1; }
+    .container { width: 100%; max-width: 600px; margin: 0 auto; padding: 20px 20px 350px 20px; flex: 1; }
     header h1 { text-align: center; font-family: 'Orbitron'; font-size: 2.2rem; color: var(--accent); text-shadow: 0 0 20px rgba(0,224,255,0.5); margin-bottom: 5px; }
-    .rate-status { text-align: center; font-size: 10px; color: var(--success); opacity: 0.8; margin-bottom: 25px; letter-spacing: 1px; }
+    .rate-info { text-align: center; font-size: 10px; color: var(--success); opacity: 0.8; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; }
 
     .tabs { display: flex; gap: 8px; margin-bottom: 25px; }
     .tab-btn { flex: 1; padding: 14px 5px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #888; border-radius: 15px; cursor: pointer; font-weight: 900; font-size: 10px; text-transform: uppercase; transition: 0.3s; }
@@ -30,27 +30,31 @@
     @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
     .nick-box { margin-bottom: 25px; text-align: center; }
-    .nick-input { width: 100%; padding: 18px; border-radius: 18px; border: 2px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.6); color: #fff; text-align: center; font-weight: 900; font-size: 18px; backdrop-filter: blur(10px); }
+    .nick-input { width: 100%; padding: 18px; border-radius: 18px; border: 2px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.6); color: #fff; text-align: center; font-weight: 900; font-size: 18px; backdrop-filter: blur(10px); transition: 0.3s; }
+    .nick-input:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(0,224,255,0.1); }
     .input-warn { font-size: 11px; color: var(--premium); margin-top: 8px; font-weight: 600; }
 
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 20px 15px; text-align: center; backdrop-filter: blur(15px); transition: 0.3s; }
-    .card:hover { transform: translateY(-5px); border-color: var(--accent); }
+    .card:hover { transform: translateY(-3px); border-color: var(--accent); }
     .rb-val { display: block; font-size: 22px; font-weight: 900; font-family: 'Orbitron'; margin-bottom: 8px; }
     .price-kgs { color: var(--success); font-weight: 900; font-size: 16px; background: rgba(0,255,163,0.1); padding: 6px; border-radius: 12px; margin-bottom: 12px; }
     .buy-btn { width: 100%; padding: 12px; border-radius: 12px; border: none; font-weight: 900; cursor: pointer; background: #fff; color: #000; text-transform: uppercase; font-size: 10px; }
 
     /* КОРЗИНА */
-    .cart { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 94%; max-width: 550px; background: rgba(8,10,15,0.96); border: 2px solid var(--accent); border-radius: 30px; padding: 22px; display: none; z-index: 1000; box-shadow: 0 0 50px #000; backdrop-filter: blur(20px); }
-    .cart-items-list { max-height: 80px; overflow-y: auto; margin-bottom: 15px; }
-    .cart-item-tag { display: inline-block; margin: 3px; padding: 6px 12px; background: rgba(0,224,255,0.1); border: 1px solid var(--accent); border-radius: 10px; cursor: pointer; font-size: 12px; font-weight: 700; }
+    .cart { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 94%; max-width: 550px; background: rgba(8,10,15,0.98); border: 2px solid var(--accent); border-radius: 30px; padding: 22px; display: none; z-index: 1000; box-shadow: 0 0 50px #000; backdrop-filter: blur(20px); }
+    .cart-items-list { max-height: 80px; overflow-y: auto; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
+    .cart-item-tag { display: inline-block; margin: 3px; padding: 6px 12px; background: rgba(0,224,255,0.1); border: 1px solid var(--accent); border-radius: 10px; cursor: pointer; font-size: 11px; font-weight: 700; }
     
-    .cart-info { display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; }
-    .total-kgs { font-size: 30px; font-weight: 900; color: #fff; line-height: 1; }
+    .cart-info { display: flex; justify-content: space-between; align-items: flex-end; }
+    .total-kgs { font-size: 32px; font-weight: 900; color: #fff; line-height: 1; }
+    .subtotal { font-size: 12px; opacity: 0.6; margin-bottom: 4px; }
+    .fee-badge { background: var(--accent); color: #000; font-size: 10px; font-weight: 900; padding: 3px 8px; border-radius: 6px; margin-left: 10px; }
+
     .actions { display: grid; grid-template-columns: 1fr 2fr; gap: 12px; margin-top: 18px; }
     .c-btn { padding: 16px; border-radius: 18px; border: none; font-weight: 900; cursor: pointer; text-align: center; text-decoration: none; font-size: 13px; text-transform: uppercase; }
 
-    footer { text-align: center; padding: 40px 20px; font-size: 11px; opacity: 0.4; line-height: 1.6; }
+    footer { text-align: center; padding: 40px 20px; font-size: 11px; opacity: 0.3; line-height: 1.6; }
   </style>
 </head>
 <body>
@@ -60,7 +64,7 @@
 <div class="container">
   <header>
     <h1>WIKSXZ SHOP</h1>
-    <div class="rate-status" id="rate-display">ЗАГРУЗКА КУРСА...</div>
+    <div class="rate-info" id="rate-display">КУРС MBANK: ЗАГРУЗКА...</div>
   </header>
   
   <div class="tabs">
@@ -82,15 +86,15 @@
   </div>
 
   <div id="about" class="content">
-    <div style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.05);">
+    <div style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1);">
       <h3 style="color: var(--accent); margin-top:0;">WIKSXZ STORE</h3>
-      <p style="opacity:0.8; font-size:14px; line-height:1.6;">Мы используем автоматизированный расчет курса валют, чтобы вы всегда получали самую выгодную цену. Курс обновляется в реальном времени.</p>
+      <p style="opacity:0.8; font-size:14px; line-height:1.6;">Мы работаем по актуальному курсу MBANK. Комиссия сервиса составляет всего 5 сом за весь заказ, независимо от количества выбранных товаров.</p>
     </div>
   </div>
 
   <footer>
-    MADE WITH AI • SECURE PAY<br>
-    © <span id="year"></span> WIKSXZ STORE • Все права защищены
+    AI GENERATED • SECURE PAY<br>
+    © <span id="year"></span> WIKSXZ STORE • Защищено от копирования
   </footer>
 </div>
 
@@ -98,25 +102,24 @@
   <div id="cart-items" class="cart-items-list"></div>
   <div class="cart-info">
     <div>
-      <span style="font-size:10px; opacity:0.5;">ИТОГО (С КОМИССИЕЙ):</span>
+      <div class="subtotal" id="subtotal-text">Товары: 0 сом</div>
       <span class="total-kgs" id="total">0 СОМ</span>
-      <div style="color:var(--premium); font-size:13px; font-weight:900;" id="st-rb">0 R$</div>
     </div>
     <div style="text-align:right;">
-      <div style="color:var(--accent); font-size:12px; font-weight:700;">+5 сом комиссия</div>
+      <div style="color:var(--premium); font-size:14px; font-weight:900; margin-bottom:5px;" id="st-rb">0 R$</div>
+      <span class="fee-badge">+5 СОМ КОМИССИЯ</span>
     </div>
   </div>
   <div class="actions">
     <button class="c-btn" style="background:#1a1a1a; color:var(--danger)" onclick="clearCart()">ОТМЕНА</button>
-    <a href="#" id="tg-send" class="c-btn" style="background:var(--accent); color:#000" onclick="return sendOrder()">ПОДТВЕРДИТЬ</a>
+    <a href="#" class="c-btn" style="background:var(--accent); color:#000" onclick="return sendOrder()">КУПИТЬ</a>
   </div>
 </div>
 
 <script>
-  // --- НАСТРОЙКИ КУРСА ---
-  let CURRENT_RATE = 87.5; // Значение по умолчанию
-  const RATE_MARGIN = 0.5; // Наценка (чтобы соответствовать курсу продажи в банке)
-  const SERVICE_FEE = 5;   // Фиксированная комиссия
+  let CURRENT_RATE = 87.5; // Базовый курс продажи
+  const SERVICE_FEE = 5;   // Фиксированная комиссия ОДИН РАЗ
+  const DATA_URL = 'data.json'; 
 
   const products = [
     {rb:40, u:0.49}, {rb:80, u:0.99}, {rb:400, u:4.99}, {rb:800, u:9.99},
@@ -125,29 +128,24 @@
 
   let cart = [];
 
-  // 1. АВТОМАТИЧЕСКОЕ ОБНОВЛЕНИЕ КУРСА
-  async function updateExchangeRate() {
+  // Авто-обновление курса (с запасом на банковский спред)
+  async function fetchRate() {
     try {
-      const response = await fetch('https://open.er-api.com/v6/latest/USD');
-      const data = await response.json();
-      if (data && data.rates && data.rates.KGS) {
-        // Берем рыночный курс и добавляем наценку (как делает Mbank)
-        CURRENT_RATE = parseFloat(data.rates.KGS) + RATE_MARGIN;
-        document.getElementById('rate-display').innerText = `LIVE КУРС MBANK: ${CURRENT_RATE.toFixed(2)} СОМ`;
-        renderShop(); // Перерисовываем товары с новым курсом
+      const res = await fetch('https://open.er-api.com/v6/latest/USD');
+      const data = await res.json();
+      if (data.rates.KGS) {
+        CURRENT_RATE = data.rates.KGS + 0.5; // Приближаем к курсу продажи 87.5
       }
-    } catch (e) {
-      document.getElementById('rate-display').innerText = `КУРС (OFFLINE): ${CURRENT_RATE.toFixed(2)} СОМ`;
-      renderShop();
-    }
+    } catch (e) { console.log("Используется курс по умолчанию"); }
+    document.getElementById('rate-display').innerText = `КУРС ПРОДАЖИ (MBANK): ${CURRENT_RATE.toFixed(2)} СОМ`;
+    renderShop();
   }
 
   function renderShop() {
     document.getElementById('items').innerHTML = products.map(p => `
       <div class="card">
         <span class="rb-val">${p.rb.toLocaleString()} R$</span>
-        <div style="font-size:11px; opacity:0.5; margin-bottom:5px;">$${p.u}</div>
-        <div class="price-kgs">${Math.ceil(p.u * CURRENT_RATE).toLocaleString()} СОМ</div>
+        <div class="price-kgs">${Math.ceil(p.u * CURRENT_RATE)} СОМ</div>
         <button class="buy-btn" onclick="buy(${p.rb}, ${p.u})">В КОРЗИНУ</button>
       </div>
     `).join('');
@@ -155,7 +153,7 @@
 
   function buy(rb, u) {
     const nick = document.getElementById('unick').value.trim();
-    if(nick.length < 3) return alert("Сначала введите ваш ник!");
+    if(nick.length < 3) return alert("Введите ник Roblox!");
     cart.push({rb, u});
     updateCart();
   }
@@ -165,28 +163,37 @@
     const itemsEl = document.getElementById('cart-items');
     cartEl.style.display = cart.length ? 'block' : 'none';
     
-    let totalUsd = 0, totalRb = 0;
+    let totalItemsSom = 0, totalRb = 0;
     itemsEl.innerHTML = "";
+
     cart.forEach((item, idx) => {
-      totalUsd += item.u; totalRb += item.rb;
+      const itemPrice = Math.ceil(item.u * CURRENT_RATE);
+      totalItemsSom += itemPrice;
+      totalRb += item.rb;
+      
       const tag = document.createElement('div');
       tag.className = 'cart-item-tag';
-      tag.innerHTML = `${item.rb}R ×`;
+      tag.innerHTML = `${item.rb}R <i class="fa-solid fa-x"></i>`;
       tag.onclick = () => { cart.splice(idx, 1); updateCart(); };
       itemsEl.appendChild(tag);
     });
 
-    const finalSom = Math.ceil(totalUsd * CURRENT_RATE) + SERVICE_FEE;
-    document.getElementById('total').innerText = finalSom.toLocaleString() + " СОМ";
+    const finalTotal = totalItemsSom + SERVICE_FEE; // ПЛЮС 5 СОМ ОДИН РАЗ
+    
+    document.getElementById('subtotal-text').innerText = `Товары: ${totalItemsSom} сом`;
+    document.getElementById('total').innerText = finalTotal + " СОМ";
     document.getElementById('st-rb').innerText = totalRb.toLocaleString() + " R$";
   }
 
   function sendOrder() {
     const nick = document.getElementById('unick').value.trim();
-    let totalUsd = 0, totalRb = 0;
-    cart.forEach(i => { totalUsd += i.u; totalRb += i.rb; });
-    const finalSom = Math.ceil(totalUsd * CURRENT_RATE) + SERVICE_FEE;
-    const msg = `🚀 ЗАКАЗ\n👤 НИК: ${nick}\n📦 ТОВАР: ${totalRb} Robux\n💰 К ОПЛАТЕ: ${finalSom} СОМ\n📈 КУРС: ${CURRENT_RATE.toFixed(2)}`;
+    let totalItemsSom = 0, totalRb = 0;
+    cart.forEach(i => { 
+      totalItemsSom += Math.ceil(i.u * CURRENT_RATE); 
+      totalRb += i.rb; 
+    });
+    const finalTotal = totalItemsSom + SERVICE_FEE;
+    const msg = `🚀 ЗАКАЗ\n👤 НИК: ${nick}\n📦 ТОВАР: ${totalRb} Robux\n💰 ИТОГО: ${finalTotal} СОМ (вкл. комиссию 5с)`;
     window.open("https://t.me/i_wiksxz0?text=" + encodeURIComponent(msg));
     return false;
   }
@@ -199,9 +206,8 @@
     e.currentTarget.classList.add('active');
   }
 
-  // Запуск
   document.getElementById('year').innerText = new Date().getFullYear();
-  updateExchangeRate();
+  fetchRate();
 </script>
 </body>
 </html>
